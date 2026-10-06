@@ -1,0 +1,158 @@
+===== DAY 94 FINAL VERIFICATION =====
+Captured at: 2026-10-06T11:23:47Z
+kind-meeps-k8s-cluster
+Target namespace: meeps-dev
+
+===== 1. DEPLOYMENT, REPLICASET, AND PODS =====
+deployment "meeps-api" successfully rolled out
+pod/meeps-api-5594cf54f4-5nd76 condition met
+pod/meeps-api-5594cf54f4-z2ttp condition met
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                         SELECTOR
+deployment.apps/meeps-api   2/2     2            2           91m   api          meeps-users-posts-api:k8s-v1   app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api
+
+NAME                                   DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES                         SELECTOR
+replicaset.apps/meeps-api-5594cf54f4   2         2         2       91m   api          meeps-users-posts-api:k8s-v1   app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api,pod-template-hash=5594cf54f4
+
+NAME                             READY   STATUS    RESTARTS      AGE   IP           NODE                        NOMINATED NODE   READINESS GATES
+pod/meeps-api-5594cf54f4-5nd76   1/1     Running   0             22m   10.244.2.3   meeps-k8s-cluster-worker2   <none>           <none>
+pod/meeps-api-5594cf54f4-z2ttp   1/1     Running   1 (35m ago)   91m   10.244.1.2   meeps-k8s-cluster-worker    <none>           <none>
+
+===== 2. SERVICE AND READY BACKENDS =====
+NAME        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE   SELECTOR
+meeps-api   ClusterIP   10.96.140.218   <none>        80/TCP    91m   app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api
+SLICE             PODS                                                    ADDRESSES               READY       PORT
+meeps-api-gcp6f   meeps-api-5594cf54f4-z2ttp,meeps-api-5594cf54f4-5nd76   10.244.1.2,10.244.2.3   true,true   8000
+
+===== 3. LIVE IMAGE, SECURITY, AND RESOURCE SETTINGS =====
+POD                          IMAGE                          UID     GID     TOKEN
+meeps-api-5594cf54f4-5nd76   meeps-users-posts-api:k8s-v1   10001   10001   false
+meeps-api-5594cf54f4-z2ttp   meeps-users-posts-api:k8s-v1   10001   10001   false
+POD                          ESCALATION   READ_ONLY   DROPPED   SECCOMP
+meeps-api-5594cf54f4-5nd76   false        true        ALL       RuntimeDefault
+meeps-api-5594cf54f4-z2ttp   false        true        ALL       RuntimeDefault
+POD                          CPU_REQ   MEM_REQ   CPU_LIMIT   MEM_LIMIT   GRACE_SECONDS
+meeps-api-5594cf54f4-5nd76   100m      128Mi     500m        256Mi       30
+meeps-api-5594cf54f4-z2ttp   100m      128Mi     500m        256Mi       30
+
+===== 4. RUNTIME IDENTITY AND DATABASE CONNECTION =====
+
+Pod: meeps-api-5594cf54f4-5nd76
+PASS: UID/GID=10001/10001; token absent; DB role=meeps_api; SELECT 1=1
+
+Pod: meeps-api-5594cf54f4-z2ttp
+PASS: UID/GID=10001/10001; token absent; DB role=meeps_api; SELECT 1=1
+
+===== 5. POSTGRESQL AND PERSISTENT STORAGE =====
+partitioned roll out complete: 1 new pods have been updated...
+persistentvolumeclaim/postgres-data-postgres-0 condition met
+NAME       READY   AGE
+postgres   1/1     2d15h
+NAME                       STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+postgres-data-postgres-0   Bound    pvc-f29efa61-733a-4e24-902a-9efcc6bf6996   1Gi        RWO            standard       <unset>                 2d15h
+
+===== 6. RECORDED POD REPLACEMENT =====
+Replaced Pod: meeps-api-5594cf54f4-2n5gt
+Replacement Pod: meeps-api-5594cf54f4-5nd76
+ReplicaSet unchanged: meeps-api-5594cf54f4
+
+Recorded replacement still present: meeps-api-5594cf54f4-5nd76
+
+===== 7. ORIGINAL RECORDS THROUGH SERVICE DNS — READ ONLY =====
+{
+  "result": "PASS",
+  "mode": "verify",
+  "base_url": "http://meeps-api",
+  "checks": [
+    "root",
+    "health",
+    "user_read",
+    "post_read"
+  ],
+  "fixture": {
+    "user": {
+      "id": 1,
+      "name": "Day 94 Kubernetes User",
+      "email": "day94-ced63c2d2a7b@example.test"
+    },
+    "post": {
+      "id": 1,
+      "title": "Day 94 persistence check ced63c2d2a7b",
+      "content": "This record must remain readable after an API Pod is replaced.",
+      "user_id": 1
+    }
+  }
+}
+
+===== 8. ORIGINAL RECORDS THROUGH REPLACEMENT POD — READ ONLY =====
+{
+  "result": "PASS",
+  "mode": "verify",
+  "base_url": "http://127.0.0.1:8000",
+  "checks": [
+    "root",
+    "health",
+    "user_read",
+    "post_read"
+  ],
+  "fixture": {
+    "user": {
+      "id": 1,
+      "name": "Day 94 Kubernetes User",
+      "email": "day94-ced63c2d2a7b@example.test"
+    },
+    "post": {
+      "id": 1,
+      "title": "Day 94 persistence check ced63c2d2a7b",
+      "content": "This record must remain readable after an API Pod is replaced.",
+      "user_id": 1
+    }
+  }
+}
+
+===== 9. CURRENT API LOGS =====
+[pod/meeps-api-5594cf54f4-5nd76/api] 2026-10-06T11:23:05.900604577Z INFO:     10.244.2.1:60308 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-5nd76/api] 2026-10-06T11:23:10.904206657Z INFO:     10.244.2.1:60310 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-5nd76/api] 2026-10-06T11:23:15.901553935Z INFO:     10.244.2.1:40434 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-5nd76/api] 2026-10-06T11:23:20.900363485Z INFO:     10.244.2.1:40450 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-5nd76/api] 2026-10-06T11:23:25.900790240Z INFO:     10.244.2.1:60296 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-5nd76/api] 2026-10-06T11:23:30.902556433Z INFO:     10.244.2.1:60312 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-5nd76/api] 2026-10-06T11:23:35.901181925Z INFO:     10.244.2.1:45796 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-5nd76/api] 2026-10-06T11:23:40.898985591Z INFO:     10.244.2.1:45798 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-5nd76/api] 2026-10-06T11:23:45.898022146Z INFO:     10.244.2.1:40650 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-5nd76/api] 2026-10-06T11:23:50.899038918Z INFO:     10.244.2.1:40662 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-5nd76/api] 2026-10-06T11:23:55.899638384Z INFO:     10.244.2.1:46376 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-5nd76/api] 2026-10-06T11:24:00.899305930Z INFO:     10.244.2.1:46380 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-5nd76/api] 2026-10-06T11:24:04.393162752Z INFO:     10.244.2.1:53920 - "GET / HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-5nd76/api] 2026-10-06T11:24:04.798903966Z INFO:     10.244.2.1:1152 - "GET /openapi.json HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-5nd76/api] 2026-10-06T11:24:05.936255887Z INFO:     10.244.2.1:33010 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-5nd76/api] 2026-10-06T11:24:06.573840157Z INFO:     127.0.0.1:58358 - "GET / HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-5nd76/api] 2026-10-06T11:24:06.576426391Z INFO:     127.0.0.1:58372 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-5nd76/api] 2026-10-06T11:24:06.577770536Z INFO:     127.0.0.1:58382 - "GET /openapi.json HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-5nd76/api] 2026-10-06T11:24:07.039470518Z INFO:     127.0.0.1:58394 - "GET /users/ HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-5nd76/api] 2026-10-06T11:24:07.052036153Z INFO:     127.0.0.1:58400 - "GET /posts/users/1 HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-z2ttp/api] 2026-10-06T11:22:44.447434948Z INFO:     10.244.1.1:57168 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-z2ttp/api] 2026-10-06T11:22:49.444095899Z INFO:     10.244.1.1:57178 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-z2ttp/api] 2026-10-06T11:22:54.444209424Z INFO:     10.244.1.1:37770 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-z2ttp/api] 2026-10-06T11:22:59.504843216Z INFO:     10.244.1.1:37784 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-z2ttp/api] 2026-10-06T11:23:04.444909607Z INFO:     10.244.1.1:58198 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-z2ttp/api] 2026-10-06T11:23:09.444189040Z INFO:     10.244.1.1:58200 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-z2ttp/api] 2026-10-06T11:23:14.442444509Z INFO:     10.244.1.1:55450 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-z2ttp/api] 2026-10-06T11:23:19.444606821Z INFO:     10.244.1.1:55466 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-z2ttp/api] 2026-10-06T11:23:24.444498767Z INFO:     10.244.1.1:33708 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-z2ttp/api] 2026-10-06T11:23:29.446135113Z INFO:     10.244.1.1:33714 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-z2ttp/api] 2026-10-06T11:23:34.443755234Z INFO:     10.244.1.1:49276 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-z2ttp/api] 2026-10-06T11:23:39.444480958Z INFO:     10.244.1.1:49280 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-z2ttp/api] 2026-10-06T11:23:44.441889262Z INFO:     10.244.1.1:45170 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-z2ttp/api] 2026-10-06T11:23:49.441817474Z INFO:     10.244.1.1:45178 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-z2ttp/api] 2026-10-06T11:23:54.445180918Z INFO:     10.244.1.1:53006 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-z2ttp/api] 2026-10-06T11:23:59.463052295Z INFO:     10.244.1.1:53020 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-z2ttp/api] 2026-10-06T11:24:04.400420819Z INFO:     10.244.2.3:38642 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-z2ttp/api] 2026-10-06T11:24:04.443032153Z INFO:     10.244.1.1:43606 - "GET /health HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-z2ttp/api] 2026-10-06T11:24:04.863197286Z INFO:     10.244.2.3:38658 - "GET /users/ HTTP/1.1" 200 OK
+[pod/meeps-api-5594cf54f4-z2ttp/api] 2026-10-06T11:24:04.918486778Z INFO:     10.244.2.3:38666 - "GET /posts/users/1 HTTP/1.1" 200 OK
+
+===== 10. LOCAL SECRET FILES AND CURRENT GIT INDEX =====
+.gitignore:20:/.local/	.local/meeps-dev/api-secret.local.yaml
+PASS: API Secret path ignored; no .local/ files in current Git index.
+
+LIVE READ/STATUS CHECKS PASSED — review the captured configuration settings before committing.

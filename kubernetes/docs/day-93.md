@@ -25,4 +25,5 @@
 - [ ] `users`, `posts`, and `alembic_version` exist; `meeps_migrator` has no superuser privileges.
 - [ ] The actual Secret remains untracked, and verification evidence is saved.
 
-**Scope:** Configuration, persistent PostgreSQL, and migrations only—not API deployment.
+**Scope:** Configuration, persistent PostgreSQL, and migrations only,no API deployment.
+

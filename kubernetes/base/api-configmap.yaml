@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: meeps-api-config
+  namespace: meeps-dev
+  labels:
+    app.kubernetes.io/name: meeps-api
+    app.kubernetes.io/instance: meeps-dev
+    app.kubernetes.io/part-of: kubernetes-production-foundations
+data:
+  PGCONNECT_TIMEOUT: "5"
+  UVICORN_LOG_LEVEL: "info"
