@@ -67,3 +67,5 @@ k apply --server-side --field-manager=meeps-local-api-secrets -f "$SECRET_FILE"
 k get secret meeps-api-credentials
 printf 'Runtime role and API Secret created. No credential values were printed.\n'
 printf 'Keep %s local and untracked. This helper deliberately refuses automatic reruns.\n' "$SECRET_FILE"
+
+

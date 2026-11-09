@@ -1,0 +1,93 @@
+===== DAY 95 FINAL VERIFICATION =====
+Captured: 2026-11-09T18:41:32Z
+kind-meeps-k8s-cluster
+deployment "meeps-api" successfully rolled out
+deployment "traefik" successfully rolled out
+startupProbe: /health
+livenessProbe: /health
+readinessProbe: /ready
+pod/meeps-api-bd56ccd98-nvqcw condition met
+pod/meeps-api-bd56ccd98-w7zcp condition met
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                         SELECTOR
+deployment.apps/meeps-api   2/2     2            2           34d   api          meeps-users-posts-api:k8s-v2   app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api
+
+NAME                                   DESIRED   CURRENT   READY   AGE     CONTAINERS   IMAGES                         SELECTOR
+replicaset.apps/meeps-api-5594cf54f4   0         0         0       34d     api          meeps-users-posts-api:k8s-v1   app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api,pod-template-hash=5594cf54f4
+replicaset.apps/meeps-api-7b6dbd5797   0         0         0       8m18s   api          meeps-users-posts-api:k8s-v2   app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api,pod-template-hash=7b6dbd5797
+replicaset.apps/meeps-api-bd56ccd98    2         2         2       10h     api          meeps-users-posts-api:k8s-v2   app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api,pod-template-hash=bd56ccd98
+
+NAME                            READY   STATUS    RESTARTS      AGE   IP           NODE                        NOMINATED NODE   READINESS GATES
+pod/meeps-api-bd56ccd98-nvqcw   1/1     Running   2 (52m ago)   10h   10.244.2.3   meeps-k8s-cluster-worker2   <none>           <none>
+pod/meeps-api-bd56ccd98-w7zcp   1/1     Running   2 (52m ago)   10h   10.244.1.2   meeps-k8s-cluster-worker    <none>           <none>
+
+===== READY BACKENDS =====
+NAME              ADDRESSTYPE   PORTS   ENDPOINTS               AGE
+meeps-api-gcp6f   IPv4          8000    10.244.1.2,10.244.2.3   34d
+
+===== INGRESS CONTROLLER AND ROUTE =====
+NAME            CONTROLLER                      PARAMETERS   AGE
+meeps-traefik   traefik.io/ingress-controller   <none>       9h
+NAME        CLASS           HOSTS             ADDRESS   PORTS   AGE
+meeps-api   meeps-traefik   api.meeps.local             80      51m
+NAME                      READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                                                                            SELECTOR
+deployment.apps/traefik   1/1     1            1           9h    traefik      traefik@sha256:f4bb143d1135a579b630ed491e17ec50f6f7c9c6a30585ff3d385471d2a86f5a   app.kubernetes.io/instance=meeps-traefik,app.kubernetes.io/name=traefik
+
+NAME                           READY   STATUS    RESTARTS      AGE   IP           NODE                        NOMINATED NODE   READINESS GATES
+pod/traefik-79b4cf4dfd-hsbjf   1/1     Running   1 (52m ago)   9h    10.244.2.2   meeps-k8s-cluster-worker2   <none>           <none>
+
+NAME              TYPE       CLUSTER-IP     EXTERNAL-IP   PORT(S)                      AGE   SELECTOR
+service/traefik   NodePort   10.96.56.249   <none>        80:30080/TCP,443:30443/TCP   9h    app.kubernetes.io/instance=meeps-traefik,app.kubernetes.io/name=traefik
+Controller image: traefik@sha256:f4bb143d1135a579b630ed491e17ec50f6f7c9c6a30585ff3d385471d2a86f5a
+
+===== EXTERNAL HTTP THROUGH INGRESS =====
+
+GET /
+{"status":"API is running"}
+
+GET /health
+{"status":"healthy"}
+
+GET /ready
+{"status":"ready"}
+
+GET /users/
+[{"id":1,"name":"Day 94 Kubernetes User","email":"day94-ced63c2d2a7b@example.test"}]
+
+===== ORIGINAL DAY 94 RECORDS THROUGH TRAEFIK — GET ONLY =====
+{
+  "result": "PASS",
+  "mode": "GET-only",
+  "route_host": "api.meeps.local",
+  "user_id": 1,
+  "post_id": 1,
+  "checks": [
+    "root",
+    "health",
+    "ready",
+    "original_user",
+    "original_post"
+  ]
+}
+
+===== SAVED READINESS / TRAFFIC EXCLUSION PROOF =====
+{
+  "result": "PASS",
+  "requests_checked": 20,
+  "backends_observed": [
+    "10.244.1.2:8000",
+    "10.244.2.3:8000"
+  ],
+  "unready_backend_excluded": "10.244.2.4:8000",
+  "scope": "Observed test requests only; not a guarantee of zero downtime."
+}
+
+===== DATABASE STORAGE =====
+partitioned roll out complete: 1 new pods have been updated...
+persistentvolumeclaim/postgres-data-postgres-0 condition met
+NAME                       STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+postgres-data-postgres-0   Bound    pvc-f29efa61-733a-4e24-902a-9efcc6bf6996   1Gi        RWO            standard       <unset>                 36d
+
+===== CURRENT GIT INDEX =====
+.gitignore:20:/.local/	.local/meeps-dev/api-secret.local.yaml
+
+DAY 95 CORE CHECKS PASSED. TLS and live Gateway API deployment are not included.

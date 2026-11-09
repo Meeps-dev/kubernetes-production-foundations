@@ -1,0 +1,104 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "addressType": "IPv4",
+            "apiVersion": "discovery.k8s.io/v1",
+            "endpoints": [
+                {
+                    "addresses": [
+                        "10.244.1.2"
+                    ],
+                    "conditions": {
+                        "ready": true,
+                        "serving": true,
+                        "terminating": false
+                    },
+                    "nodeName": "meeps-k8s-cluster-worker",
+                    "targetRef": {
+                        "kind": "Pod",
+                        "name": "meeps-api-bd56ccd98-w7zcp",
+                        "namespace": "meeps-dev",
+                        "uid": "edc190d9-67ee-4a1e-8518-e3a6bd7bc2de"
+                    }
+                },
+                {
+                    "addresses": [
+                        "10.244.2.3"
+                    ],
+                    "conditions": {
+                        "ready": true,
+                        "serving": true,
+                        "terminating": false
+                    },
+                    "nodeName": "meeps-k8s-cluster-worker2",
+                    "targetRef": {
+                        "kind": "Pod",
+                        "name": "meeps-api-bd56ccd98-nvqcw",
+                        "namespace": "meeps-dev",
+                        "uid": "7e5764b2-330e-4275-a882-7259b1aa4459"
+                    }
+                },
+                {
+                    "addresses": [
+                        "10.244.2.4"
+                    ],
+                    "conditions": {
+                        "ready": false,
+                        "serving": false,
+                        "terminating": false
+                    },
+                    "nodeName": "meeps-k8s-cluster-worker2",
+                    "targetRef": {
+                        "kind": "Pod",
+                        "name": "meeps-api-7b6dbd5797-xbbjv",
+                        "namespace": "meeps-dev",
+                        "uid": "fa4a4cbd-ad40-4cd5-8fc8-3e2b804ab440"
+                    }
+                }
+            ],
+            "kind": "EndpointSlice",
+            "metadata": {
+                "annotations": {
+                    "endpoints.kubernetes.io/last-change-trigger-time": "2026-11-09T18:33:16Z"
+                },
+                "creationTimestamp": "2026-10-06T09:52:07Z",
+                "generateName": "meeps-api-",
+                "generation": 29,
+                "labels": {
+                    "app.kubernetes.io/component": "api",
+                    "app.kubernetes.io/instance": "meeps-dev",
+                    "app.kubernetes.io/name": "meeps-api",
+                    "app.kubernetes.io/part-of": "kubernetes-production-foundations",
+                    "endpointslice.kubernetes.io/managed-by": "endpointslice-controller.k8s.io",
+                    "kubernetes.io/service-name": "meeps-api"
+                },
+                "name": "meeps-api-gcp6f",
+                "namespace": "meeps-dev",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "Service",
+                        "name": "meeps-api",
+                        "uid": "c731af7d-728f-4243-916b-01d70d61d381"
+                    }
+                ],
+                "resourceVersion": "78452",
+                "uid": "7afa30c5-476c-44ca-ab25-456720707b1e"
+            },
+            "ports": [
+                {
+                    "name": "http",
+                    "port": 8000,
+                    "protocol": "TCP"
+                }
+            ]
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

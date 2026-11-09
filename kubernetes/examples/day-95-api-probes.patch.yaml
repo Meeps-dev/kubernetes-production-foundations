@@ -1,0 +1,33 @@
+# Strategic merge PATCH for the existing Deployment. Not a standalone resource.
+# Apply locally with kubectl patch --local to update the tracked manifest.
+spec:
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/version: k8s-v2
+    spec:
+      containers:
+        - name: api
+          image: meeps-users-posts-api:k8s-v2
+          startupProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 24
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: http
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 2
+            successThreshold: 1

@@ -1,0 +1,10 @@
+{
+  "result": "PASS",
+  "requests_checked": 20,
+  "backends_observed": [
+    "10.244.1.2:8000",
+    "10.244.2.3:8000"
+  ],
+  "unready_backend_excluded": "10.244.2.4:8000",
+  "scope": "Observed test requests only; not a guarantee of zero downtime."
+}

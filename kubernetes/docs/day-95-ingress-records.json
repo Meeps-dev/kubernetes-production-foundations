@@ -1,0 +1,14 @@
+{
+  "result": "PASS",
+  "mode": "GET-only",
+  "route_host": "api.meeps.local",
+  "user_id": 1,
+  "post_id": 1,
+  "checks": [
+    "root",
+    "health",
+    "ready",
+    "original_user",
+    "original_post"
+  ]
+}
