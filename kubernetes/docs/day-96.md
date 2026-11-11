@@ -1,7 +1,5 @@
 # Day 96 — Rolling Update, Failed Rollout, and Rollback
 
-> Draft based on the Day 96 walkthrough; execution and recovery results have not been shared.
-
 ## What I Did
 - Documented the `/version` addition and build/load workflow for `meeps-users-posts-api:week14-v2`, preserving existing API routes and the Day 95 image.
 - Prepared the Deployment configuration: two replicas, `maxUnavailable: 0`, `maxSurge: 1`, `minReadySeconds: 10`, `progressDeadlineSeconds: 180`, and `revisionHistoryLimit: 5`.
