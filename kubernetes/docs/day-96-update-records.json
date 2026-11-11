@@ -1,0 +1,35 @@
+[
+  {
+    "result": "PASS",
+    "mode": "GET-only",
+    "base_url": "http://traefik.traefik-system",
+    "release": {
+      "version": "week14-v2",
+      "pod": "meeps-api-8445846c4b-m586f"
+    },
+    "user_id": 1,
+    "post_id": 1
+  },
+  {
+    "result": "PASS",
+    "mode": "GET-only",
+    "base_url": "http://127.0.0.1:8000",
+    "release": {
+      "version": "week14-v2",
+      "pod": "meeps-api-8445846c4b-m586f"
+    },
+    "user_id": 1,
+    "post_id": 1
+  },
+  {
+    "result": "PASS",
+    "mode": "GET-only",
+    "base_url": "http://127.0.0.1:8000",
+    "release": {
+      "version": "week14-v2",
+      "pod": "meeps-api-8445846c4b-ndch9"
+    },
+    "user_id": 1,
+    "post_id": 1
+  }
+]

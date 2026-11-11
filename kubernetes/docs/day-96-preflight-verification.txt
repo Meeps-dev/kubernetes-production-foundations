@@ -1,0 +1,37 @@
+DAY 96 / preflight / 2026-11-11T08:45:23.256+00:00
+deployment "meeps-api" successfully rolled out
+
+partitioned roll out complete: 1 new pods have been updated...
+
+deployment "traefik" successfully rolled out
+
+[
+  {
+    "result": "PASS",
+    "mode": "GET-only",
+    "base_url": "http://traefik.traefik-system",
+    "release": null,
+    "user_id": 1,
+    "post_id": 1
+  }
+]
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                         SELECTOR
+deployment.apps/meeps-api   2/2     2            2           35d   api          meeps-users-posts-api:k8s-v2   app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api
+
+NAME                                   DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES                         SELECTOR
+replicaset.apps/meeps-api-5594cf54f4   0         0         0       35d   api          meeps-users-posts-api:k8s-v1   app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api,pod-template-hash=5594cf54f4
+replicaset.apps/meeps-api-7b6dbd5797   0         0         0       38h   api          meeps-users-posts-api:k8s-v2   app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api,pod-template-hash=7b6dbd5797
+replicaset.apps/meeps-api-bd56ccd98    2         2         2       2d    api          meeps-users-posts-api:k8s-v2   app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api,pod-template-hash=bd56ccd98
+
+NAME                            READY   STATUS    RESTARTS        AGE   IP           NODE                        NOMINATED NODE   READINESS GATES
+pod/meeps-api-bd56ccd98-nvqcw   1/1     Running   3 (5m45s ago)   2d    10.244.2.3   meeps-k8s-cluster-worker2   <none>           <none>
+pod/meeps-api-bd56ccd98-w7zcp   1/1     Running   3 (5m45s ago)   2d    10.244.1.2   meeps-k8s-cluster-worker    <none>           <none>
+
+deployment.apps/meeps-api 
+REVISION  CHANGE-CAUSE
+1         <none>
+3         <none>
+4         <none>
+
+
+PREFLIGHT PASSED. Baseline saved; cluster workloads have not been modified.

@@ -1,0 +1,4 @@
+DAY 96 / fail / 2026-11-11T09:25:02.781+00:00
+STOP: Successful monitored update is required
+This attempt is incomplete; its report remains .tmp. Do not rename it to claim success.
+Inspect the Deployment. No automatic workload rollback has been performed.

@@ -1,6 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    kubernetes.io/change-cause: 'Day 96: release week14-v2 with /version'
   labels:
     app.kubernetes.io/component: api
     app.kubernetes.io/instance: meeps-dev
@@ -10,10 +12,10 @@ metadata:
   name: meeps-api
   namespace: meeps-dev
 spec:
-  minReadySeconds: 5
+  minReadySeconds: 10
   progressDeadlineSeconds: 180
   replicas: 2
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: 5
   selector:
     matchLabels:
       app.kubernetes.io/instance: meeps-dev
@@ -30,7 +32,7 @@ spec:
         app.kubernetes.io/instance: meeps-dev
         app.kubernetes.io/name: meeps-api
         app.kubernetes.io/part-of: kubernetes-production-foundations
-        app.kubernetes.io/version: k8s-v2
+        app.kubernetes.io/version: week14-v2
     spec:
       automountServiceAccountToken: false
       containers:
@@ -55,7 +57,7 @@ spec:
         envFrom:
         - configMapRef:
             name: meeps-api-config
-        image: meeps-users-posts-api:k8s-v2
+        image: meeps-users-posts-api:week14-v2
         imagePullPolicy: Never
         livenessProbe:
           failureThreshold: 3

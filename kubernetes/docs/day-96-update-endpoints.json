@@ -1,0 +1,87 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "addressType": "IPv4",
+      "apiVersion": "discovery.k8s.io/v1",
+      "endpoints": [
+        {
+          "addresses": [
+            "10.244.2.4"
+          ],
+          "conditions": {
+            "ready": true,
+            "serving": true,
+            "terminating": false
+          },
+          "nodeName": "meeps-k8s-cluster-worker2",
+          "targetRef": {
+            "kind": "Pod",
+            "name": "meeps-api-8445846c4b-m586f",
+            "namespace": "meeps-dev",
+            "uid": "a36c0ac4-209d-4948-bc11-7f155ee27f8c"
+          }
+        },
+        {
+          "addresses": [
+            "10.244.1.4"
+          ],
+          "conditions": {
+            "ready": true,
+            "serving": true,
+            "terminating": false
+          },
+          "nodeName": "meeps-k8s-cluster-worker",
+          "targetRef": {
+            "kind": "Pod",
+            "name": "meeps-api-8445846c4b-ndch9",
+            "namespace": "meeps-dev",
+            "uid": "ed7c61f5-51fe-4f96-9614-b19e8ccbd090"
+          }
+        }
+      ],
+      "kind": "EndpointSlice",
+      "metadata": {
+        "annotations": {
+          "endpoints.kubernetes.io/last-change-trigger-time": "2026-11-11T09:12:42Z"
+        },
+        "creationTimestamp": "2026-10-06T09:52:07Z",
+        "generateName": "meeps-api-",
+        "generation": 42,
+        "labels": {
+          "app.kubernetes.io/component": "api",
+          "app.kubernetes.io/instance": "meeps-dev",
+          "app.kubernetes.io/name": "meeps-api",
+          "app.kubernetes.io/part-of": "kubernetes-production-foundations",
+          "endpointslice.kubernetes.io/managed-by": "endpointslice-controller.k8s.io",
+          "kubernetes.io/service-name": "meeps-api"
+        },
+        "name": "meeps-api-gcp6f",
+        "namespace": "meeps-dev",
+        "ownerReferences": [
+          {
+            "apiVersion": "v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Service",
+            "name": "meeps-api",
+            "uid": "c731af7d-728f-4243-916b-01d70d61d381"
+          }
+        ],
+        "resourceVersion": "85434",
+        "uid": "7afa30c5-476c-44ca-ab25-456720707b1e"
+      },
+      "ports": [
+        {
+          "name": "http",
+          "port": 8000,
+          "protocol": "TCP"
+        }
+      ]
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": ""
+  }
+}
