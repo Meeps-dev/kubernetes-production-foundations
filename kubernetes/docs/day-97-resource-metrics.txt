@@ -1,0 +1,12 @@
+===== NODE METRICS =====
+NAME                              CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+meeps-k8s-cluster-control-plane   466m         5%       746Mi           19%         
+meeps-k8s-cluster-worker          286m         3%       430Mi           11%         
+meeps-k8s-cluster-worker2         248m         3%       584Mi           14%         
+
+===== API CONTAINER METRICS =====
+POD                          NAME   CPU(cores)   MEMORY(bytes)   
+meeps-api-8445846c4b-ggb4z   api    11m          81Mi            
+meeps-api-8445846c4b-m586f   api    9m           94Mi            
+meeps-api-8445846c4b-ndch9   api    17m          79Mi            
+meeps-api-8445846c4b-wwdgp   api    35m          66Mi            

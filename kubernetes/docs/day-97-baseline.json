@@ -1,0 +1,7 @@
+{
+  "result": "PASS",
+  "at": "2026-11-12T10:30:55.919178+00:00",
+  "postgres_uid": "1598493f-30bb-4ee8-a3aa-20a53f73cc8e",
+  "postgres_node": "meeps-k8s-cluster-worker",
+  "pvc_uid": "f29efa61-733a-4e24-902a-9efcc6bf6996"
+}

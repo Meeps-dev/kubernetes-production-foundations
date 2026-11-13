@@ -1,0 +1,29 @@
+Day 97 checkpoint: manual-4 | 2026-11-12T09:56:07.036792+00:00
+deployment.apps/meeps-api scaled
+
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                            SELECTOR
+deployment.apps/meeps-api   4/4     4            4           37d   api          meeps-users-posts-api:week14-v2   app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api
+
+NAME                                   DESIRED   CURRENT   READY   AGE     CONTAINERS   IMAGES                            SELECTOR
+replicaset.apps/meeps-api-5594cf54f4   0         0         0       37d     api          meeps-users-posts-api:k8s-v1      app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api,pod-template-hash=5594cf54f4
+replicaset.apps/meeps-api-7b6dbd5797   0         0         0       2d15h   api          meeps-users-posts-api:k8s-v2      app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api,pod-template-hash=7b6dbd5797
+replicaset.apps/meeps-api-8445846c4b   4         4         4       24h     api          meeps-users-posts-api:week14-v2   app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api,pod-template-hash=8445846c4b
+replicaset.apps/meeps-api-bd56ccd98    0         0         0       3d1h    api          meeps-users-posts-api:k8s-v2      app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api,pod-template-hash=bd56ccd98
+
+NAME                             READY   STATUS    RESTARTS        AGE   IP           NODE                        NOMINATED NODE   READINESS GATES
+pod/meeps-api-8445846c4b-728b5   1/1     Running   0               21s   10.244.1.4   meeps-k8s-cluster-worker    <none>           <none>
+pod/meeps-api-8445846c4b-m586f   1/1     Running   1 (9m32s ago)   24h   10.244.2.3   meeps-k8s-cluster-worker2   <none>           <none>
+pod/meeps-api-8445846c4b-ndch9   1/1     Running   1 (9m32s ago)   24h   10.244.1.2   meeps-k8s-cluster-worker    <none>           <none>
+pod/meeps-api-8445846c4b-sk2fs   1/1     Running   0               21s   10.244.2.4   meeps-k8s-cluster-worker2   <none>           <none>
+
+{
+  "result": "PASS",
+  "mode": "GET-only",
+  "base_url": "http://traefik.traefik-system",
+  "release": {
+    "version": "week14-v2",
+    "pod": "meeps-api-8445846c4b-sk2fs"
+  },
+  "user_id": 1,
+  "post_id": 1
+}

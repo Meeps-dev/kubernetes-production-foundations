@@ -1,0 +1,7 @@
+{
+  "result": "PASS",
+  "at": "2026-11-13T17:19:34.631621+00:00",
+  "manifest_replicas_removed": true,
+  "last_applied_replicas_removed": true,
+  "live_replicas": 2
+}

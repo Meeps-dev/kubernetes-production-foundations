@@ -1,0 +1,18 @@
+# Local strategic-merge patch for api-deployment.yaml; not a standalone resource.
+spec:
+  template:
+    spec:
+      nodeSelector:
+        meeps.dev/node-pool: worker
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          nodeAffinityPolicy: Honor
+          nodeTaintsPolicy: Honor
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: meeps-api
+              app.kubernetes.io/instance: meeps-dev
+          matchLabelKeys:
+            - pod-template-hash

@@ -1,0 +1,8 @@
+Day 97 checkpoint: observe-out | 2026-11-13T17:22:19.365927+00:00
+desired=2 ready=2 HPA_healthy=True CPU=[{'resource': {'current': {'averageUtilization': 6, 'averageValue': '6m'}, 'name': 'cpu'}, 'type': 'Resource'}]
+desired=2 ready=2 HPA_healthy=True CPU=[{'resource': {'current': {'averageUtilization': 8, 'averageValue': '8m'}, 'name': 'cpu'}, 'type': 'Resource'}]
+desired=2 ready=2 HPA_healthy=True CPU=[{'resource': {'current': {'averageUtilization': 46, 'averageValue': '46m'}, 'name': 'cpu'}, 'type': 'Resource'}]
+desired=3 ready=2 HPA_healthy=True CPU=[{'resource': {'current': {'averageUtilization': 91, 'averageValue': '91m'}, 'name': 'cpu'}, 'type': 'Resource'}]
+desired=3 ready=2 HPA_healthy=True CPU=[{'resource': {'current': {'averageUtilization': 91, 'averageValue': '91m'}, 'name': 'cpu'}, 'type': 'Resource'}]
+desired=3 ready=3 HPA_healthy=True CPU=[{'resource': {'current': {'averageUtilization': 89, 'averageValue': '89m'}, 'name': 'cpu'}, 'type': 'Resource'}]
+SCALE-OUT OBSERVED.

@@ -14,7 +14,6 @@ metadata:
 spec:
   minReadySeconds: 10
   progressDeadlineSeconds: 180
-  replicas: 2
   revisionHistoryLimit: 5
   selector:
     matchLabels:
@@ -101,6 +100,8 @@ spec:
         volumeMounts:
         - mountPath: /tmp
           name: tmp
+      nodeSelector:
+        meeps.dev/node-pool: worker
       securityContext:
         fsGroup: 10001
         runAsGroup: 10001
@@ -110,6 +111,18 @@ spec:
           type: RuntimeDefault
       serviceAccountName: meeps-api
       terminationGracePeriodSeconds: 30
+      topologySpreadConstraints:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/instance: meeps-dev
+            app.kubernetes.io/name: meeps-api
+        matchLabelKeys:
+        - pod-template-hash
+        maxSkew: 1
+        nodeAffinityPolicy: Honor
+        nodeTaintsPolicy: Honor
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: ScheduleAnyway
       volumes:
       - emptyDir:
           sizeLimit: 64Mi

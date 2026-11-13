@@ -1,0 +1,12 @@
+Day 97 checkpoint: handoff | 2026-11-13T17:19:31.326449+00:00
+deployment.apps/meeps-api patched
+
+deployment.apps/meeps-api configured (server dry run)
+
+deployment.apps/meeps-api configured
+
+horizontalpodautoscaler.autoscaling/meeps-api created (server dry run)
+
+horizontalpodautoscaler.autoscaling/meeps-api created
+
+HPA CREATED. Do not reapply an old manifest or checkpoint that sets spec.replicas.

@@ -1,0 +1,71 @@
+===== CLUSTER CONNECTION AND NODES =====
+NAME                              STATUS   ROLES           AGE   VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE                       KERNEL-VERSION            CONTAINER-RUNTIME
+meeps-k8s-cluster-control-plane   Ready    control-plane   42d   v1.37.0   172.22.0.3    <none>        Debian GNU/Linux 13 (trixie)   7.0.12-linuxkit (amd64)   containerd://2.3.4
+meeps-k8s-cluster-worker          Ready    <none>          42d   v1.37.0   172.22.0.2    <none>        Debian GNU/Linux 13 (trixie)   7.0.12-linuxkit (amd64)   containerd://2.3.4
+meeps-k8s-cluster-worker2         Ready    <none>          42d   v1.37.0   172.22.0.4    <none>        Debian GNU/Linux 13 (trixie)   7.0.12-linuxkit (amd64)   containerd://2.3.4
+
+===== LIVE DEPLOYMENT COUNTS =====
+NAME        DESIRED   UPDATED   READY   AVAILABLE   GENERATION   OBSERVED
+meeps-api   4         4         4       4           8            8
+
+===== API REPLICASETS =====
+NAME                   DESIRED   CURRENT   READY   AGE
+meeps-api-5594cf54f4   0         0         0       38d
+meeps-api-7b6dbd5797   0         0         0       3d22h
+meeps-api-8445846c4b   4         4         4       2d8h
+meeps-api-bd56ccd98    0         0         0       4d8h
+
+===== ALL MATCHING API PODS =====
+NAME                         READY   STATUS    RESTARTS      AGE    IP           NODE                        NOMINATED NODE   READINESS GATES
+meeps-api-8445846c4b-ggb4z   1/1     Running   2 (15m ago)   30h    10.244.1.2   meeps-k8s-cluster-worker    <none>           <none>
+meeps-api-8445846c4b-m586f   1/1     Running   3 (15m ago)   2d8h   10.244.2.2   meeps-k8s-cluster-worker2   <none>           <none>
+meeps-api-8445846c4b-ndch9   1/1     Running   3 (15m ago)   2d7h   10.244.1.4   meeps-k8s-cluster-worker    <none>           <none>
+meeps-api-8445846c4b-wwdgp   1/1     Running   2 (15m ago)   30h    10.244.2.3   meeps-k8s-cluster-worker2   <none>           <none>
+
+===== POD CONDITIONS AND FAILURE REASONS =====
+NAME                         PHASE     READY   DELETING   WAITING   LAST_EXIT
+meeps-api-8445846c4b-ggb4z   Running   True    <none>     <none>    Unknown
+meeps-api-8445846c4b-m586f   Running   True    <none>     <none>    Unknown
+meeps-api-8445846c4b-ndch9   Running   True    <none>     <none>    Unknown
+meeps-api-8445846c4b-wwdgp   Running   True    <none>     <none>    Unknown
+
+===== POSTGRESQL =====
+NAME         READY   STATUS    RESTARTS       AGE   IP           NODE                       NOMINATED NODE   READINESS GATES
+postgres-0   1/1     Running   12 (15m ago)   40d   10.244.1.3   meeps-k8s-cluster-worker   <none>           <none>
+NAME                       STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+postgres-data-postgres-0   Bound    pvc-f29efa61-733a-4e24-902a-9efcc6bf6996   1Gi        RWO            standard       <unset>                 40d
+
+===== EXISTING AUTOSCALERS =====
+No resources found in meeps-dev namespace.
+
+===== RECENT NAMESPACE EVENTS =====
+11h         Warning   Unhealthy              pod/meeps-api-8445846c4b-wwdgp   Readiness probe failed: HTTP probe failed with statuscode: 503
+11h         Warning   Unhealthy              pod/meeps-api-8445846c4b-ndch9   Readiness probe failed: HTTP probe failed with statuscode: 503
+15m         Normal    SandboxChanged         pod/meeps-api-8445846c4b-wwdgp   Pod sandbox changed, it will be killed and re-created.
+15m         Normal    SandboxChanged         pod/meeps-api-8445846c4b-m586f   Pod sandbox changed, it will be killed and re-created.
+15m         Normal    Pulled                 pod/meeps-api-8445846c4b-m586f   Container image "meeps-users-posts-api:week14-v2" already present on machine and can be accessed by the pod
+15m         Normal    Created                pod/meeps-api-8445846c4b-m586f   Container created
+15m         Normal    Pulled                 pod/meeps-api-8445846c4b-wwdgp   Container image "meeps-users-posts-api:week14-v2" already present on machine and can be accessed by the pod
+15m         Normal    Started                pod/meeps-api-8445846c4b-m586f   Container started
+15m         Normal    Created                pod/meeps-api-8445846c4b-wwdgp   Container created
+15m         Normal    Started                pod/meeps-api-8445846c4b-wwdgp   Container started
+15m         Warning   Unhealthy              pod/meeps-api-8445846c4b-m586f   Startup probe failed: Get "http://10.244.2.2:8000/health": dial tcp 10.244.2.2:8000: connect: connection refused
+15m         Warning   Unhealthy              pod/meeps-api-8445846c4b-wwdgp   Startup probe failed: Get "http://10.244.2.3:8000/health": dial tcp 10.244.2.3:8000: connect: connection refused
+15m         Normal    SandboxChanged         pod/meeps-api-8445846c4b-ndch9   Pod sandbox changed, it will be killed and re-created.
+15m         Normal    SandboxChanged         pod/meeps-api-8445846c4b-ggb4z   Pod sandbox changed, it will be killed and re-created.
+15m         Normal    SandboxChanged         pod/postgres-0                   Pod sandbox changed, it will be killed and re-created.
+15m         Normal    Pulled                 pod/meeps-api-8445846c4b-ndch9   Container image "meeps-users-posts-api:week14-v2" already present on machine and can be accessed by the pod
+15m         Normal    Created                pod/meeps-api-8445846c4b-ndch9   Container created
+15m         Normal    Created                pod/postgres-0                   Container created
+15m         Normal    Pulled                 pod/postgres-0                   Container image "postgres@sha256:539ceaaae49b3a7c8a04467cf00cc6788d8e3f1675df41860d86eebc4c40524f" already present on machine and can be accessed by the pod
+15m         Normal    Created                pod/meeps-api-8445846c4b-ggb4z   Container created
+15m         Normal    Pulled                 pod/meeps-api-8445846c4b-ggb4z   Container image "meeps-users-posts-api:week14-v2" already present on machine and can be accessed by the pod
+15m         Normal    Started                pod/meeps-api-8445846c4b-ndch9   Container started
+15m         Warning   Unhealthy              pod/meeps-api-8445846c4b-ggb4z   Startup probe failed: Get "http://10.244.1.2:8000/health": dial tcp 10.244.1.2:8000: connect: connection refused
+15m         Warning   Unhealthy              pod/meeps-api-8445846c4b-ndch9   Startup probe failed: Get "http://10.244.1.4:8000/health": dial tcp 10.244.1.4:8000: connect: connection refused
+15m         Normal    Started                pod/meeps-api-8445846c4b-ggb4z   Container started
+15m         Normal    Started                pod/postgres-0                   Container started
+14m         Warning   Unhealthy              pod/meeps-api-8445846c4b-ggb4z   Readiness probe failed: HTTP probe failed with statuscode: 503
+14m         Warning   Unhealthy              pod/meeps-api-8445846c4b-m586f   Readiness probe failed: HTTP probe failed with statuscode: 503
+14m         Warning   Unhealthy              pod/meeps-api-8445846c4b-wwdgp   Readiness probe failed: HTTP probe failed with statuscode: 503
+14m         Warning   Unhealthy              pod/meeps-api-8445846c4b-ndch9   Readiness probe failed: HTTP probe failed with statuscode: 503
