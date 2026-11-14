@@ -1,7 +1,7 @@
 {
   "result": "PASS",
-  "at": "2026-11-14T17:16:55.688434+00:00",
-  "files_checked": 219,
+  "at": "2026-11-14T17:31:18.893281+00:00",
+  "files_checked": 222,
   "findings": [],
   "scope": "Current Git index plus exact known local credentials and basic markers; not a full secret/history scanner."
 }
