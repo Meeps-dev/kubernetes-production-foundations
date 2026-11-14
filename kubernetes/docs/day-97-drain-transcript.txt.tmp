@@ -1,22 +1,21 @@
-Day 97 checkpoint: drain | 2026-11-13T17:41:03.178771+00:00
+Day 97 checkpoint: drain | 2026-11-14T16:22:41.138680+00:00
 PostgreSQL remains on: meeps-k8s-cluster-worker
 Chosen maintenance worker: meeps-k8s-cluster-worker2
-NAMESPACE        NAME                              READY   STATUS    RESTARTS       AGE     IP           NODE                        NOMINATED NODE   READINESS GATES
-kube-system      kindnet-4n6xs                     1/1     Running   16 (44m ago)   42d     172.22.0.4   meeps-k8s-cluster-worker2   <none>           <none>
-kube-system      kube-proxy-q4xmj                  1/1     Running   16 (44m ago)   42d     172.22.0.4   meeps-k8s-cluster-worker2   <none>           <none>
-kube-system      metrics-server-57cf4f9856-z58f7   1/1     Running   0              4m57s   10.244.2.8   meeps-k8s-cluster-worker2   <none>           <none>
-meeps-dev        meeps-api-5b9dd8bcff-c4jsf        1/1     Running   0              9m25s   10.244.2.7   meeps-k8s-cluster-worker2   <none>           <none>
-traefik-system   traefik-79b4cf4dfd-hsbjf          1/1     Running   5 (44m ago)    4d8h    10.244.2.5   meeps-k8s-cluster-worker2   <none>           <none>
+NAMESPACE        NAME                         READY   STATUS    RESTARTS       AGE    IP           NODE                        NOMINATED NODE   READINESS GATES
+kube-system      kindnet-4n6xs                1/1     Running   17 (84m ago)   43d    172.22.0.2   meeps-k8s-cluster-worker2   <none>           <none>
+kube-system      kube-proxy-q4xmj             1/1     Running   17 (84m ago)   43d    172.22.0.2   meeps-k8s-cluster-worker2   <none>           <none>
+meeps-dev        meeps-api-5b9dd8bcff-c4jsf   1/1     Running   1 (84m ago)    22h    10.244.2.2   meeps-k8s-cluster-worker2   <none>           <none>
+traefik-system   traefik-79b4cf4dfd-hsbjf     1/1     Running   6 (84m ago)    5d7h   10.244.2.3   meeps-k8s-cluster-worker2   <none>           <none>
 
 node/meeps-k8s-cluster-worker2 cordoned
 
-deployment.apps/metrics-server restarted
+deployment.apps/traefik restarted
 
 poddisruptionbudget.policy/meeps-api configured
 
 node/meeps-k8s-cluster-worker2 uncordoned
 
-STOP: Command failed: kubectl --kubeconfig /Users/user/.kube/meeps-k8s-cluster.yaml --context kind-meeps-k8s-cluster --namespace kube-system rollout
-Waiting for deployment "metrics-server" rollout to finish: 1 old replicas are pending termination...
+STOP: Command failed: kubectl --kubeconfig /Users/user/.kube/meeps-k8s-cluster.yaml --context kind-meeps-k8s-cluster --namespace traefik-system rollout
+Waiting for deployment "traefik" rollout to finish: 1 old replicas are pending termination...
 error: timed out waiting for the condition
 

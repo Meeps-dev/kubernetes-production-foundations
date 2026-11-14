@@ -1,0 +1,9 @@
+{
+  "result": "PASS",
+  "scenario": "crash",
+  "at": "2026-11-14T16:49:18.095604+00:00",
+  "cluster_uid": "af28bf7b-1508-4e23-9705-cdb110b03684",
+  "failure_observed": true,
+  "canary_repaired": true,
+  "main_api_verified_before_after": true
+}

@@ -1,0 +1,253 @@
+{
+  "result": "PASS",
+  "at": "2026-11-14T16:41:18.571299+00:00",
+  "cluster_uid": "af28bf7b-1508-4e23-9705-cdb110b03684",
+  "readiness_basis": "live_day98_checks",
+  "day97_drain": "DEFERRED_NOT_VERIFIED",
+  "postgres_uid": "1598493f-30bb-4ee8-a3aa-20a53f73cc8e",
+  "pvc_uid": "f29efa61-733a-4e24-902a-9efcc6bf6996",
+  "api_template": {
+    "metadata": {
+      "labels": {
+        "app.kubernetes.io/component": "api",
+        "app.kubernetes.io/instance": "meeps-dev",
+        "app.kubernetes.io/name": "meeps-api",
+        "app.kubernetes.io/part-of": "kubernetes-production-foundations",
+        "app.kubernetes.io/version": "week14-v2"
+      }
+    },
+    "spec": {
+      "automountServiceAccountToken": false,
+      "containers": [
+        {
+          "args": [
+            "app.main:app",
+            "--host",
+            "0.0.0.0",
+            "--port",
+            "8000",
+            "--timeout-graceful-shutdown",
+            "20"
+          ],
+          "command": [
+            "python",
+            "-m",
+            "uvicorn"
+          ],
+          "env": [
+            {
+              "name": "DATABASE_URL",
+              "valueFrom": {
+                "secretKeyRef": {
+                  "key": "DATABASE_URL",
+                  "name": "meeps-api-credentials"
+                }
+              }
+            }
+          ],
+          "envFrom": [
+            {
+              "configMapRef": {
+                "name": "meeps-api-config"
+              }
+            }
+          ],
+          "image": "meeps-users-posts-api:week14-v2",
+          "imagePullPolicy": "Never",
+          "livenessProbe": {
+            "failureThreshold": 3,
+            "httpGet": {
+              "path": "/health",
+              "port": "http",
+              "scheme": "HTTP"
+            },
+            "periodSeconds": 10,
+            "successThreshold": 1,
+            "timeoutSeconds": 2
+          },
+          "name": "api",
+          "ports": [
+            {
+              "containerPort": 8000,
+              "name": "http",
+              "protocol": "TCP"
+            }
+          ],
+          "readinessProbe": {
+            "failureThreshold": 2,
+            "httpGet": {
+              "path": "/ready",
+              "port": "http",
+              "scheme": "HTTP"
+            },
+            "periodSeconds": 5,
+            "successThreshold": 1,
+            "timeoutSeconds": 5
+          },
+          "resources": {
+            "limits": {
+              "cpu": "500m",
+              "memory": "256Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "128Mi"
+            }
+          },
+          "securityContext": {
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            },
+            "readOnlyRootFilesystem": true
+          },
+          "startupProbe": {
+            "failureThreshold": 24,
+            "httpGet": {
+              "path": "/health",
+              "port": "http",
+              "scheme": "HTTP"
+            },
+            "periodSeconds": 5,
+            "successThreshold": 1,
+            "timeoutSeconds": 2
+          },
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/tmp",
+              "name": "tmp"
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "nodeSelector": {
+        "meeps.dev/node-pool": "worker"
+      },
+      "restartPolicy": "Always",
+      "schedulerName": "default-scheduler",
+      "securityContext": {
+        "fsGroup": 10001,
+        "runAsGroup": 10001,
+        "runAsNonRoot": true,
+        "runAsUser": 10001,
+        "seccompProfile": {
+          "type": "RuntimeDefault"
+        }
+      },
+      "serviceAccount": "meeps-api",
+      "serviceAccountName": "meeps-api",
+      "terminationGracePeriodSeconds": 30,
+      "topologySpreadConstraints": [
+        {
+          "labelSelector": {
+            "matchLabels": {
+              "app.kubernetes.io/instance": "meeps-dev",
+              "app.kubernetes.io/name": "meeps-api"
+            }
+          },
+          "matchLabelKeys": [
+            "pod-template-hash"
+          ],
+          "maxSkew": 1,
+          "nodeAffinityPolicy": "Honor",
+          "nodeTaintsPolicy": "Honor",
+          "topologyKey": "kubernetes.io/hostname",
+          "whenUnsatisfiable": "ScheduleAnyway"
+        }
+      ],
+      "volumes": [
+        {
+          "emptyDir": {
+            "sizeLimit": "64Mi"
+          },
+          "name": "tmp"
+        }
+      ]
+    }
+  },
+  "hpa_spec": {
+    "behavior": {
+      "scaleDown": {
+        "policies": [
+          {
+            "periodSeconds": 60,
+            "type": "Pods",
+            "value": 1
+          }
+        ],
+        "selectPolicy": "Max",
+        "stabilizationWindowSeconds": 180
+      },
+      "scaleUp": {
+        "policies": [
+          {
+            "periodSeconds": 30,
+            "type": "Pods",
+            "value": 1
+          }
+        ],
+        "selectPolicy": "Max",
+        "stabilizationWindowSeconds": 0
+      }
+    },
+    "maxReplicas": 5,
+    "metrics": [
+      {
+        "resource": {
+          "name": "cpu",
+          "target": {
+            "averageUtilization": 60,
+            "type": "Utilization"
+          }
+        },
+        "type": "Resource"
+      }
+    ],
+    "minReplicas": 2,
+    "scaleTargetRef": {
+      "apiVersion": "apps/v1",
+      "kind": "Deployment",
+      "name": "meeps-api"
+    }
+  },
+  "pdb_spec": {
+    "minAvailable": 1,
+    "selector": {
+      "matchLabels": {
+        "app.kubernetes.io/instance": "meeps-dev",
+        "app.kubernetes.io/name": "meeps-api"
+      }
+    },
+    "unhealthyPodEvictionPolicy": "AlwaysAllow"
+  },
+  "api_service_spec": {
+    "clusterIP": "10.96.140.218",
+    "clusterIPs": [
+      "10.96.140.218"
+    ],
+    "internalTrafficPolicy": "Cluster",
+    "ipFamilies": [
+      "IPv4"
+    ],
+    "ipFamilyPolicy": "SingleStack",
+    "ports": [
+      {
+        "name": "http",
+        "port": 80,
+        "protocol": "TCP",
+        "targetPort": "http"
+      }
+    ],
+    "selector": {
+      "app.kubernetes.io/instance": "meeps-dev",
+      "app.kubernetes.io/name": "meeps-api"
+    },
+    "sessionAffinity": "None",
+    "type": "ClusterIP"
+  }
+}

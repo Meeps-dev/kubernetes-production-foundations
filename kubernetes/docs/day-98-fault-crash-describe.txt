@@ -1,0 +1,77 @@
+Name:             meeps-day98-canary-7d6c4c584d-pzn68
+Namespace:        meeps-dev
+Priority:         0
+Service Account:  meeps-api
+Node:             meeps-k8s-cluster-worker2/172.22.0.2
+Start Time:       Sat, 14 Nov 2026 17:48:24 +0100
+Labels:           app.kubernetes.io/instance=meeps-dev
+                  app.kubernetes.io/name=meeps-day98-canary
+                  meeps.dev/day98-owner=failure-lab-v1
+                  pod-template-hash=7d6c4c584d
+Annotations:      <none>
+Status:           Running
+SeccompProfile:   RuntimeDefault
+IP:               10.244.2.16
+IPs:
+  IP:           10.244.2.16
+Controlled By:  ReplicaSet/meeps-day98-canary-7d6c4c584d
+Containers:
+  api:
+    Container ID:  containerd://a2a74e10d65e1654949eff6d2c811a9ff0db9afd01b593b3e24ff1aac9893e2f
+    Image:         meeps-users-posts-api:week14-v2
+    Image ID:      docker.io/library/import-2026-11-11@sha256:2ca9bd3260c5976d5a98f8c96e2adb767643882a140a34e5b4bd9f531f190fce
+    Port:          8000/TCP (http)
+    Host Port:     0/TCP (http)
+    Command:
+      python
+      -c
+    Args:
+      import sys; print('DAY98_INTENTIONAL_CRASH',flush=True); sys.exit(42)
+    State:          Waiting
+      Reason:       CrashLoopBackOff
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    42
+      Started:      Sat, 14 Nov 2026 17:48:28 +0100
+      Finished:     Sat, 14 Nov 2026 17:48:28 +0100
+    Ready:          False
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  256Mi
+    Requests:
+      cpu:      100m
+      memory:   128Mi
+    Liveness:   http-get http://:http/health delay=0s timeout=2s period=10s #success=1 #failure=3
+    Readiness:  http-get http://:http/ready delay=0s timeout=5s period=5s #success=1 #failure=2
+    Startup:    http-get http://:http/health delay=0s timeout=2s period=5s #success=1 #failure=24
+    Environment Variables from:
+      meeps-api-config  ConfigMap  Optional: false
+    Environment:
+      DATABASE_URL:  <set to the key 'DATABASE_URL' in secret 'meeps-api-credentials'>  Optional: false
+    Mounts:
+      /tmp from tmp (rw)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  tmp:
+    Type:        EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:      
+    SizeLimit:   64Mi
+QoS Class:       Burstable
+Node-Selectors:  meeps.dev/node-pool=worker
+Tolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                 node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age              From               Message
+  ----     ------     ----             ----               -------
+  Normal   Scheduled  10s              default-scheduler  Successfully assigned meeps-dev/meeps-day98-canary-7d6c4c584d-pzn68 to meeps-k8s-cluster-worker2
+  Normal   Pulled     7s (x2 over 8s)  kubelet            spec.containers{api}: Container image "meeps-users-posts-api:week14-v2" already present on machine and can be accessed by the pod
+  Normal   Created    7s (x2 over 8s)  kubelet            spec.containers{api}: Container created
+  Normal   Started    6s (x2 over 8s)  kubelet            spec.containers{api}: Container started
+  Warning  BackOff    3s (x4 over 6s)  kubelet            spec.containers{api}: Back-off restarting failed container api in pod meeps-day98-canary-7d6c4c584d-pzn68_meeps-dev(88cec507-1c9d-4c95-a698-82f25c88b385)

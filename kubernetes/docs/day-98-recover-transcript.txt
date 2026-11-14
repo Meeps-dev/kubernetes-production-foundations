@@ -1,0 +1,7 @@
+Day 98 checkpoint: recover | 2026-11-14T16:50:42.005587+00:00
+service/meeps-day98-canary unchanged
+
+deployment.apps/meeps-day98-canary configured
+
+{"success": true, "http_status": 200}
+CANARY RESTORED. No success result fabricated.

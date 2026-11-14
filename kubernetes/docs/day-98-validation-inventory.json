@@ -1,0 +1,463 @@
+{
+  "result": "PASS",
+  "at": "2026-11-14T17:15:03.067126+00:00",
+  "files": [
+    {
+      "path": "kubernetes/base/api-configmap.yaml",
+      "syntax": "PASS",
+      "sha256": "9eccc065ad2065cdbe60234a65d1dbdfd6677c9e814b00d43fed4f00891d37b7",
+      "scope": "canonical resource: security/image checks + server dry run + diff"
+    },
+    {
+      "path": "kubernetes/base/api-deployment.yaml",
+      "syntax": "PASS",
+      "sha256": "fbd59357ede49b8702c1f46ca92363ce4b985842943373d8724a6989489ad6f4",
+      "scope": "canonical resource: security/image checks + server dry run + diff"
+    },
+    {
+      "path": "kubernetes/base/api-service.yaml",
+      "syntax": "PASS",
+      "sha256": "ab03944bd95b6abdb0aef36c1fafefc731930019f2369bf6245dda30844e0f0a",
+      "scope": "canonical resource: security/image checks + server dry run + diff"
+    },
+    {
+      "path": "kubernetes/base/api-serviceaccount.yaml",
+      "syntax": "PASS",
+      "sha256": "6a0bb1a0c2a5773fa042b6c90d8fe85413629d788f53d0f516e20c86f517b61b",
+      "scope": "canonical resource: security/image checks + server dry run + diff"
+    },
+    {
+      "path": "kubernetes/base/configmap.yaml",
+      "syntax": "PASS",
+      "sha256": "12084d30d92acfe09458716f908d414a9d3dbcd1b7a73a8f0511078d23e0bcf5",
+      "scope": "canonical resource: security/image checks + server dry run + diff"
+    },
+    {
+      "path": "kubernetes/base/hpa.yaml",
+      "syntax": "PASS",
+      "sha256": "3d0ea9cdb321012c7fe95258f0febd211e5038a935625660211592b01eee46c2",
+      "scope": "canonical resource: security/image checks + server dry run + diff"
+    },
+    {
+      "path": "kubernetes/base/ingress.yaml",
+      "syntax": "PASS",
+      "sha256": "d4424e9cb3e222d6fc7d9b4d20c6e2b7103b626d698f8618bd9f19c85eb780ec",
+      "scope": "canonical resource: security/image checks + server dry run + diff"
+    },
+    {
+      "path": "kubernetes/base/migration-job.yaml",
+      "syntax": "PASS",
+      "sha256": "94540e9c3c7fb8182c3d1c723a296f1bea3c438fda545c60e02f1ea190c50ae4",
+      "scope": "canonical resource: security/image checks + server dry run + diff"
+    },
+    {
+      "path": "kubernetes/base/namespace.yaml",
+      "syntax": "PASS",
+      "sha256": "e143eca127931fcca49bff0528a1cf5a12250434b27a929ff4df57ca83cda33c",
+      "scope": "canonical resource: security/image checks + server dry run + diff"
+    },
+    {
+      "path": "kubernetes/base/pdb.yaml",
+      "syntax": "PASS",
+      "sha256": "e35d4f76aa728f60d138e3530293016f18f573312c85f241b93ab487d961e1a8",
+      "scope": "canonical resource: security/image checks + server dry run + diff"
+    },
+    {
+      "path": "kubernetes/base/postgres-service.yaml",
+      "syntax": "PASS",
+      "sha256": "a3d3ae9a1d6a694d58d1dbb83f0ef43457253dc9fca6d248b658686d173c7e06",
+      "scope": "canonical resource: security/image checks + server dry run + diff"
+    },
+    {
+      "path": "kubernetes/base/postgres-statefulset.yaml",
+      "syntax": "PASS",
+      "sha256": "54994f0205ecd8bd0d0afc0e50f3b24d72dc53890f7c3c923503ab4e12915e0c",
+      "scope": "canonical resource: security/image checks + server dry run + diff"
+    },
+    {
+      "path": "kubernetes/base/serviceaccount.yaml",
+      "syntax": "PASS",
+      "sha256": "6715a63be29e3cc293c704c37b41ba7615265c20a5bbd79170c211fa961e9deb",
+      "scope": "canonical resource: security/image checks + server dry run + diff"
+    },
+    {
+      "path": "kubernetes/cluster/ingress-controller/namespace.yaml",
+      "syntax": "PASS",
+      "sha256": "ea5170f93df6eeaa19887adec5448fcee7b822fb9a5faf04dff38e91baaac548",
+      "scope": "canonical resource: security/image checks + server dry run + diff"
+    },
+    {
+      "path": "kubernetes/cluster/ingress-controller/rbac.yaml",
+      "syntax": "PASS",
+      "sha256": "662488b1100a8c1f293e0d8a86e93db8a334fee6ae3d37d75793770711b75667",
+      "scope": "canonical resource: security/image checks + server dry run + diff"
+    },
+    {
+      "path": "kubernetes/cluster/ingress-controller/traefik-deployment.yaml",
+      "syntax": "PASS",
+      "sha256": "b7a97fa417460aa125b7cb590f60341f135f1b7a4c9b50b322c0dd429d3a18b6",
+      "scope": "canonical resource: security/image checks + server dry run + diff"
+    },
+    {
+      "path": "kubernetes/cluster/ingress-controller/traefik-service.yaml",
+      "syntax": "PASS",
+      "sha256": "8636b8324fe047e4a03d8b9d6b66f4c8af3800bb437594fd51b17c1de6a23177",
+      "scope": "canonical resource: security/image checks + server dry run + diff"
+    },
+    {
+      "path": "kubernetes/cluster/kind-config.yaml",
+      "syntax": "PASS",
+      "sha256": "0a300b8a5768c82669862ce83aba909ca8f67f6213c399260e7c9b4fe3e532b5",
+      "scope": "kind configuration: syntax + lab invariants; not a Kubernetes API object"
+    },
+    {
+      "path": "kubernetes/cluster/metrics-server/components-v0.9.1.yaml",
+      "syntax": "PASS",
+      "sha256": "3c7f57cdbee0f57fb0259a150e8f6d6cb4f29d72d1aa5dce8803151dd6d4c2a1",
+      "scope": "canonical resource: security/image checks + server dry run + diff"
+    },
+    {
+      "path": "kubernetes/cluster/metrics-server/kind-local-tls.patch.json",
+      "syntax": "PASS",
+      "sha256": "23e018beff8d77b66c1abbb25e246e55f43aae0b79ce910e8c0c79a260794212",
+      "scope": "patch rendered into target + server dry run only; NEVER applied/diffed as desired state"
+    },
+    {
+      "path": "kubernetes/docs/day-94-fixture.json",
+      "syntax": "PASS",
+      "sha256": "621b61b2881656c6dd00a443239171e87979eaee3fee510a259d2a9566c30b40",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-94-pods-after.json",
+      "syntax": "PASS",
+      "sha256": "a87c3349a24661d07a1b910717f56619fbdb02ce07b7671a664534c361ec3d69",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-94-pods-before.json",
+      "syntax": "PASS",
+      "sha256": "8579b51068be7e07a0a3fa2dc2c91f806899def7614396cf03b187f1b3884bd7",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-95-endpoints-during-drill.json",
+      "syntax": "PASS",
+      "sha256": "7181eee38a653d7b408b701a2e4fb0b140deeca93a04f0018412285e9a5d8588",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-95-ingress-records.json",
+      "syntax": "PASS",
+      "sha256": "ea457a02c3d5661f58b5cb70fdefdc3723925397ee3d12491039f0c675a52c3e",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-95-readiness-drill.json",
+      "syntax": "PASS",
+      "sha256": "b36ad5d7368a8b8fce5df8db50ee9bb9840a296e112a2fbda2de8685880fa5a7",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-96-baseline-deployment.json",
+      "syntax": "PASS",
+      "sha256": "c2a1e4ede059355b27ef684b33ef485703febe9b388c6f4d467679df6ad81f96",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-96-baseline-deployment.yaml",
+      "syntax": "PASS",
+      "sha256": "2ea653c25afe145033a488ed1031b599add3842d32dd6e732ee3551fdb5ac7b4",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-96-baseline-endpoints.json",
+      "syntax": "PASS",
+      "sha256": "8b41df759c0db944baed2e1a2583ec1a0832ed630b39f7c718875380eafdc05b",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-96-baseline-pods.json",
+      "syntax": "PASS",
+      "sha256": "9db5db89697034016d9e7532e95f1a763b5fb854cd807ba5f71603b0cfddca4e",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-96-baseline-records.json",
+      "syntax": "PASS",
+      "sha256": "4f6db5d7812932b3057b6891d8fa0a5d8e8b0016602c23fac30eb69f093998cf",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-96-baseline-replicasets.json",
+      "syntax": "PASS",
+      "sha256": "6839d90c2a926fa0f1f13a674926a37c0104c72333f20b45daf7e029b94913ef",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-96-baseline-state.json",
+      "syntax": "PASS",
+      "sha256": "73d8360e20469748f9d5fd8635a7efe06332420604c9c38646c36ac9ae91097d",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-96-good-state.json",
+      "syntax": "PASS",
+      "sha256": "0d2a624c6cbc3f185c4e242a0bd1ac807549802503aed32882c3c4a0e19b5a26",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-96-known-good-deployment.yaml",
+      "syntax": "PASS",
+      "sha256": "8ed9590e5c42a80ec0c594e1e926c6bebbcf3d523de549768c480d505d8c9f5e",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-96-update-deployment.json",
+      "syntax": "PASS",
+      "sha256": "45afa312f2877773ad0438cf8353b3740804cbf3b97dba014c4cbce0095c7003",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-96-update-endpoints.json",
+      "syntax": "PASS",
+      "sha256": "4f0220de8aa2123025699d9bd7960d305b792b00d6eaf8f571aaf14927516f67",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-96-update-pods.json",
+      "syntax": "PASS",
+      "sha256": "bcbf22486690543484ef8bb15ed83c0ab0add501d7892f9bd5ef643ccf585cc3",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-96-update-records.json",
+      "syntax": "PASS",
+      "sha256": "546e8090b89b9ba9a7f02e5209253bb9e23064e492b484b9e7958cdaa6e19308",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-96-update-replicasets.json",
+      "syntax": "PASS",
+      "sha256": "9e5182ee11b45817408480b79d5adcc6dab833695e07dd9b0389d154d1097e15",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-96-update-traffic-summary.json",
+      "syntax": "PASS",
+      "sha256": "a40fc69073d933788037d750b4ad43fd24c78b51c4cbfd50a28b073f6c2384e1",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-97-baseline.json",
+      "syntax": "PASS",
+      "sha256": "22a246c98e8c1fa8bef03e08f2ad24b004b9eb1a2346ac9730be68870fce875b",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-97-before-hpa-deployment.yaml",
+      "syntax": "PASS",
+      "sha256": "8ed9590e5c42a80ec0c594e1e926c6bebbcf3d523de549768c480d505d8c9f5e",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-97-drain-http-samples.json",
+      "syntax": "PASS",
+      "sha256": "f41aacf62e50541cee057103b4aa15210682a3f31d1e3917da69bfcdf68b700b",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-97-load-job-at-stop.json",
+      "syntax": "PASS",
+      "sha256": "65366e594786f1e6cad80d7b118f64b1ad235573a0f7a65b1aa68e8eb2a48f3a",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-97-load-request.json",
+      "syntax": "PASS",
+      "sha256": "b7d17e23c3ef17171ed9ba6639a285228952f4f2326afb8196f83a5c500682b2",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-97-manual-2.json",
+      "syntax": "PASS",
+      "sha256": "8b836f035a48e0d457866d7435641ad06d06a5e86e1449110523dfdfe890d521",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-97-manual-4.json",
+      "syntax": "PASS",
+      "sha256": "b9cbca656d73b6cf4db0d1b1faff5a287e11f4dd4c28f08983b95c3e7fc8bfc8",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-97-metrics-before-unpin-20261114-171216.yaml",
+      "syntax": "PASS",
+      "sha256": "6663f09e5858c901566f3e0e5f99db2fca7b8001cccc4ba74421d1baf6c7b0a2",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-97-pods-before-drain.json",
+      "syntax": "PASS",
+      "sha256": "34f4b5322af20ab5f05efbfe79829ebc72bc28093b6bde84e98bb99f6e399744",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-97-replica-handoff.json",
+      "syntax": "PASS",
+      "sha256": "6cd411b59037a3b130789d17ab743b88625bbfa044014a24c65a04bc7cfd6517",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-97-scale-in.json",
+      "syntax": "PASS",
+      "sha256": "d9aaf2c2edb130867d6d61822d638b94447aadcb0a09c8ba0d5a64424b170186",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-97-scale-out.json",
+      "syntax": "PASS",
+      "sha256": "a8044da8df18fac6859024410aca961221aafae18bc1c9c11a6977f99dd0e8fd",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-97-topology.json",
+      "syntax": "PASS",
+      "sha256": "11103fe3ffc61ac932af07c608468d1805e4d6ea697c13358848bf079784cc25",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-98-baseline.json",
+      "syntax": "PASS",
+      "sha256": "a315985c391ded473d3ed1126d475608e201049861266149f2b05d88106045df",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-98-canary-healthy.json",
+      "syntax": "PASS",
+      "sha256": "53578e27774fc6b557f6f72313ec01a2dfb630f04ecc31fb8415ae24110fa25b",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-98-fault-crash-observed.json",
+      "syntax": "PASS",
+      "sha256": "fa7535e8f8ca9c86534745be1847056f7ba281e5102a05658f5a4b9d43dd5e43",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-98-fault-crash-request.json",
+      "syntax": "PASS",
+      "sha256": "9403451305e5d3aecc36477f7eea9273151160ff9a14e56505ef9ba8434f0821",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-98-fault-crash.json",
+      "syntax": "PASS",
+      "sha256": "c5b65775fe34ed8b3fa618dee5c87fb8c79909ec5362f73af83cbe96dab4c2f3",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-98-fault-readiness-observed.json",
+      "syntax": "PASS",
+      "sha256": "241df2c152aac2b0bdff27d173b8bca07af5c59005f44d5eee4b9b9d9799f54a",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-98-fault-readiness-request.json",
+      "syntax": "PASS",
+      "sha256": "154f2300595567a7416d3dc693b9c2850d23f92ff3400a7846007c9f4164b9d1",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-98-fault-secret-key-observed.json",
+      "syntax": "PASS",
+      "sha256": "e1091d7c3ea57ed29925002c850d753f5e788d8be2beb40046cfed269b4a3afc",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-98-fault-secret-key-request.json",
+      "syntax": "PASS",
+      "sha256": "ecb284fa98c7281fd7c5dcae27fc014a962efe5739e32b786ede3830aad0b78d",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-98-fault-secret-key.json",
+      "syntax": "PASS",
+      "sha256": "019bb32cbab2735e4cacc5b6662599a7b28e4fddf34508b2b9025e2a710e85e8",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-98-fault-selector-request.json",
+      "syntax": "PASS",
+      "sha256": "d6691f3555f55ebdc290422b6524eb794809412ed19839b0ef24a0d3d171c77a",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/docs/day-98-validation-inventory.json",
+      "syntax": "PASS",
+      "sha256": "611ea1ce5b5562d24f39b1f966a83eb7c05141ccf0564d6578d2424867809554",
+      "scope": "capture/snapshot: syntax only, never reapplied"
+    },
+    {
+      "path": "kubernetes/examples/api-secret.example.yaml",
+      "syntax": "PASS",
+      "sha256": "d7300e39ffb73e9274b8ff880853ffc9d394f0813774f2a627f1bff139cc51f4",
+      "scope": "placeholder Secret: syntax/placeholder checks only; no API request or diff"
+    },
+    {
+      "path": "kubernetes/examples/day-95-api-probes.patch.yaml",
+      "syntax": "PASS",
+      "sha256": "df24a54e2d5f47eff92eb38ab555aa63c10be8052e499e49697e2d3659d05d0d",
+      "scope": "patch rendered into target + server dry run only; NEVER applied/diffed as desired state"
+    },
+    {
+      "path": "kubernetes/examples/day-95-httproute.example.yaml",
+      "syntax": "PASS",
+      "sha256": "616d3c9ca76e2ece6de3520d9a9d1a798702dff975444ae2aa80393c46a86f26",
+      "scope": "optional Gateway reference: syntax only; not deployed or server-validated"
+    },
+    {
+      "path": "kubernetes/examples/day-96-rollout.patch.yaml",
+      "syntax": "PASS",
+      "sha256": "5dcf9d72ffee005e310e5335cfe970380ba56dba613f6bb515350d64e90e77c7",
+      "scope": "patch rendered into target + server dry run only; NEVER applied/diffed as desired state"
+    },
+    {
+      "path": "kubernetes/examples/day-97-load-job.yaml",
+      "syntax": "PASS",
+      "sha256": "83265baa1f808bace9916d8b2cae8a80d7d6f0196792d057db7fdf5f79f7f118",
+      "scope": "lab/example resources: server dry run only; NEVER applied/diffed as desired state"
+    },
+    {
+      "path": "kubernetes/examples/day-97-topology.patch.yaml",
+      "syntax": "PASS",
+      "sha256": "1feb4fe1c8b7041f21b1fde0b1f96bb62f750c727788e8f264d1834264ae60bb",
+      "scope": "patch rendered into target + server dry run only; NEVER applied/diffed as desired state"
+    },
+    {
+      "path": "kubernetes/examples/secret.example.yaml",
+      "syntax": "PASS",
+      "sha256": "b2cf96ff584750a1dab0e8c20080ce454e312411cb4a4f688b4d2e37d500d6a8",
+      "scope": "placeholder Secret: syntax/placeholder checks only; no API request or diff"
+    }
+  ],
+  "problems": [],
+  "differences": [
+    {
+      "file": "kubernetes/base/configmap.yaml",
+      "resource": "ConfigMap/meeps-db-init",
+      "diff": "diff -u -N /var/folders/5j/03_96mdx5jg320pnxnp4stw40000gn/T/LIVE-4210725516/v1.ConfigMap.meeps-dev.meeps-db-init /var/folders/5j/03_96mdx5jg320pnxnp4stw40000gn/T/MERGED-1158300725/v1.ConfigMap.meeps-dev.meeps-db-init\n--- /var/folders/5j/03_96mdx5jg320pnxnp4stw40000gn/T/LIVE-4210725516/v1.ConfigMap.meeps-dev.meeps-db-init\t2026-11-14 18:14:42\n+++ /var/folders/5j/03_96mdx5jg320pnxnp4stw40000gn/T/MERGED-1158300725/v1.ConfigMap.meeps-dev.meeps-db-init\t2026-11-14 18:14:42\n@@ -1,6 +1,6 @@\n apiVersion: v1\n data:\n-  10-create-migrator.sql: |\n+  10-create-migrator.sql: |-\n     \\getenv migration_user MIGRATION_USER\n     \\getenv migration_password MIGRATION_PASSWORD\n     \\getenv database_name POSTGRES_DB\n"
+    },
+    {
+      "file": "kubernetes/base/migration-job.yaml",
+      "resource": "Job/meeps-db-migrate-day93",
+      "diff": "diff -u -N /var/folders/5j/03_96mdx5jg320pnxnp4stw40000gn/T/LIVE-2450102338/batch.v1.Job.meeps-dev.meeps-db-migrate-day93 /var/folders/5j/03_96mdx5jg320pnxnp4stw40000gn/T/MERGED-2632337992/batch.v1.Job.meeps-dev.meeps-db-migrate-day93\n--- /var/folders/5j/03_96mdx5jg320pnxnp4stw40000gn/T/LIVE-2450102338/batch.v1.Job.meeps-dev.meeps-db-migrate-day93\t2026-11-14 18:14:44\n+++ /var/folders/5j/03_96mdx5jg320pnxnp4stw40000gn/T/MERGED-2632337992/batch.v1.Job.meeps-dev.meeps-db-migrate-day93\t2026-11-14 18:14:44\n@@ -0,0 +1,153 @@\n+apiVersion: batch/v1\n+kind: Job\n+metadata:\n+  creationTimestamp: \"2026-11-14T17:14:44Z\"\n+  generation: 1\n+  labels:\n+    app.kubernetes.io/component: migration\n+    app.kubernetes.io/instance: meeps-dev\n+    app.kubernetes.io/name: meeps-db-migration\n+    batch.kubernetes.io/controller-uid: 68208a26-64b0-4573-b984-2474f4813890\n+    batch.kubernetes.io/job-name: meeps-db-migrate-day93\n+    controller-uid: 68208a26-64b0-4573-b984-2474f4813890\n+    job-name: meeps-db-migrate-day93\n+  name: meeps-db-migrate-day93\n+  namespace: meeps-dev\n+  uid: 68208a26-64b0-4573-b984-2474f4813890\n+spec:\n+  activeDeadlineSeconds: 300\n+  backoffLimit: 0\n+  completionMode: NonIndexed\n+  completions: 1\n+  manualSelector: false\n+  parallelism: 1\n+  podReplacementPolicy: TerminatingOrFailed\n+  selector:\n+    matchLabels:\n+      batch.kubernetes.io/controller-uid: 68208a26-64b0-4573-b984-2474f4813890\n+  suspend: false\n+  template:\n+    metadata:\n+      labels:\n+        app.kubernetes.io/component: migration\n+        app.kubernetes.io/instance: meeps-dev\n+        app.kubernetes.io/name: meeps-db-migration\n+        batch.kubernetes.io/controller-uid: 68208a26-64b0-4573-b984-2474f4813890\n+        batch.kubernetes.io/job-name: meeps-db-migrate-day93\n+        controller-uid: 68208a26-64b0-4573-b984-2474f4813890\n+        job-name: meeps-db-migrate-day93\n+    spec:\n+      automountServiceAccountToken: false\n+      containers:\n+      - args:\n+        - |\n+          import subprocess\n+          from sqlalchemy import create_engine, inspect, text\n+          from app.config import settings\n+\n+          engine = create_engine(\n+              settings.DATABASE_URL,\n+              isolation_level=\"AUTOCOMMIT\",\n+          )\n+\n+          with engine.connect() as connection:\n+              locked = connection.execute(\n+                  text(\"SELECT pg_try_advisory_lock(93001)\")\n+              ).scalar_one()\n+\n+              if not locked:\n+                  raise RuntimeError(\"Another migration holds the lab lock.\")\n+\n+              try:\n+                  subprocess.run(\n+                      [\"alembic\", \"upgrade\", \"head\"],\n+                      check=True,\n+                  )\n+\n+                  subprocess.run(\n+                      [\"alembic\", \"current\", \"--check-heads\"],\n+                      check=True,\n+                  )\n+\n+                  required = {\"users\", \"posts\", \"alembic_version\"}\n+                  tables = set(\n+                      inspect(connection).get_table_names(schema=\"public\")\n+                  )\n+                  missing = required - tables\n+\n+                  if missing:\n+                      raise RuntimeError(\n+                          f\"Missing tables: {sorted(missing)}\"\n+                      )\n+\n+                  result = connection.execute(\n+                      text(\"SELECT 1\")\n+                  ).scalar_one()\n+\n+                  if result != 1:\n+                      raise RuntimeError(\"Database query failed.\")\n+\n+                  print(\"Database query: PASS\", flush=True)\n+                  print(\n+                      \"Required tables:\",\n+                      \", \".join(sorted(required)),\n+                      flush=True,\n+                  )\n+                  print(\"DAY 93 MIGRATION CHECKS PASSED\", flush=True)\n+\n+              finally:\n+                  connection.execute(\n+                      text(\"SELECT pg_advisory_unlock(93001)\")\n+                  )\n+\n+          engine.dispose()\n+        command:\n+        - python\n+        - -c\n+        env:\n+        - name: DATABASE_URL\n+          valueFrom:\n+            secretKeyRef:\n+              key: DATABASE_URL\n+              name: meeps-db-credentials\n+        - name: PGCONNECT_TIMEOUT\n+          value: \"5\"\n+        image: meeps-users-posts-api:k8s-baseline\n+        imagePullPolicy: Never\n+        name: migrate\n+        resources:\n+          limits:\n+            cpu: 500m\n+            memory: 256Mi\n+          requests:\n+            cpu: 50m\n+            memory: 128Mi\n+        securityContext:\n+          allowPrivilegeEscalation: false\n+          capabilities:\n+            drop:\n+            - ALL\n+          readOnlyRootFilesystem: true\n+        terminationMessagePath: /dev/termination-log\n+        terminationMessagePolicy: File\n+        volumeMounts:\n+        - mountPath: /tmp\n+          name: tmp\n+      dnsPolicy: ClusterFirst\n+      restartPolicy: Never\n+      schedulerName: default-scheduler\n+      securityContext:\n+        fsGroup: 10001\n+        runAsGroup: 10001\n+        runAsNonRoot: true\n+        runAsUser: 10001\n+        seccompProfile:\n+          type: RuntimeDefault\n+      serviceAccount: meeps-workloads\n+      serviceAccountName: meeps-workloads\n+      terminationGracePeriodSeconds: 30\n+      volumes:\n+      - emptyDir: {}\n+        name: tmp\n+  ttlSecondsAfterFinished: 86400\n+status: {}\n"
+    },
+    {
+      "file": "kubernetes/cluster/metrics-server/components-v0.9.1.yaml",
+      "resource": "Deployment/metrics-server",
+      "diff": "diff -u -N /var/folders/5j/03_96mdx5jg320pnxnp4stw40000gn/T/LIVE-376880842/apps.v1.Deployment.kube-system.metrics-server /var/folders/5j/03_96mdx5jg320pnxnp4stw40000gn/T/MERGED-3395628836/apps.v1.Deployment.kube-system.metrics-server\n--- /var/folders/5j/03_96mdx5jg320pnxnp4stw40000gn/T/LIVE-376880842/apps.v1.Deployment.kube-system.metrics-server\t2026-11-14 18:14:57\n+++ /var/folders/5j/03_96mdx5jg320pnxnp4stw40000gn/T/MERGED-3395628836/apps.v1.Deployment.kube-system.metrics-server\t2026-11-14 18:14:57\n@@ -6,7 +6,7 @@\n     kubectl.kubernetes.io/last-applied-configuration: |\n       {\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"k8s-app\":\"metrics-server\"},\"name\":\"metrics-server\",\"namespace\":\"kube-system\"},\"spec\":{\"selector\":{\"matchLabels\":{\"k8s-app\":\"metrics-server\"}},\"strategy\":{\"rollingUpdate\":{\"maxUnavailable\":0}},\"template\":{\"metadata\":{\"labels\":{\"k8s-app\":\"metrics-server\"}},\"spec\":{\"containers\":[{\"args\":[\"--cert-dir=/tmp\",\"--secure-port=10250\",\"--kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname\",\"--kubelet-use-node-status-port\",\"--metric-resolution=15s\"],\"image\":\"registry.k8s.io/metrics-server/metrics-server:v0.9.1\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/livez\",\"port\":\"https\",\"scheme\":\"HTTPS\"},\"periodSeconds\":10},\"name\":\"metrics-server\",\"ports\":[{\"containerPort\":10250,\"name\":\"https\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/readyz\",\"port\":\"https\",\"scheme\":\"HTTPS\"},\"initialDelaySeconds\":20,\"periodSeconds\":10},\"resources\":{\"requests\":{\"cpu\":\"100m\",\"memory\":\"200Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsNonRoot\":true,\"runAsUser\":1000,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/tmp\",\"name\":\"tmp-dir\"}]}],\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"priorityClassName\":\"system-cluster-critical\",\"serviceAccountName\":\"metrics-server\",\"volumes\":[{\"emptyDir\":{},\"name\":\"tmp-dir\"}]}}}}\n   creationTimestamp: \"2026-11-12T10:17:01Z\"\n-  generation: 12\n+  generation: 13\n   labels:\n     k8s-app: metrics-server\n   name: metrics-server\n@@ -39,7 +39,6 @@\n         - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname\n         - --kubelet-use-node-status-port\n         - --metric-resolution=15s\n-        - --kubelet-insecure-tls\n         image: registry.k8s.io/metrics-server/metrics-server:v0.9.1\n         imagePullPolicy: IfNotPresent\n         livenessProbe:\n"
+    }
+  ],
+  "note": "PASS covers the explicitly listed scope; reference-only files are not live-validated."
+}

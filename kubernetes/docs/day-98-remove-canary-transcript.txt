@@ -1,0 +1,6 @@
+Day 98 checkpoint: remove-canary | 2026-11-14T16:52:10.221194+00:00
+deployment.apps "meeps-day98-canary" deleted from meeps-dev namespace
+
+service "meeps-day98-canary" deleted from meeps-dev namespace
+
+Only the Day 98 canary resources were removed.

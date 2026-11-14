@@ -1,0 +1,195 @@
+kubernetes/base/configmap.yaml ConfigMap/meeps-db-init
+diff -u -N /var/folders/5j/03_96mdx5jg320pnxnp4stw40000gn/T/LIVE-4210725516/v1.ConfigMap.meeps-dev.meeps-db-init /var/folders/5j/03_96mdx5jg320pnxnp4stw40000gn/T/MERGED-1158300725/v1.ConfigMap.meeps-dev.meeps-db-init
+--- /var/folders/5j/03_96mdx5jg320pnxnp4stw40000gn/T/LIVE-4210725516/v1.ConfigMap.meeps-dev.meeps-db-init	2026-11-14 18:14:42
++++ /var/folders/5j/03_96mdx5jg320pnxnp4stw40000gn/T/MERGED-1158300725/v1.ConfigMap.meeps-dev.meeps-db-init	2026-11-14 18:14:42
+@@ -1,6 +1,6 @@
+ apiVersion: v1
+ data:
+-  10-create-migrator.sql: |
++  10-create-migrator.sql: |-
+     \getenv migration_user MIGRATION_USER
+     \getenv migration_password MIGRATION_PASSWORD
+     \getenv database_name POSTGRES_DB
+
+
+kubernetes/base/migration-job.yaml Job/meeps-db-migrate-day93
+diff -u -N /var/folders/5j/03_96mdx5jg320pnxnp4stw40000gn/T/LIVE-2450102338/batch.v1.Job.meeps-dev.meeps-db-migrate-day93 /var/folders/5j/03_96mdx5jg320pnxnp4stw40000gn/T/MERGED-2632337992/batch.v1.Job.meeps-dev.meeps-db-migrate-day93
+--- /var/folders/5j/03_96mdx5jg320pnxnp4stw40000gn/T/LIVE-2450102338/batch.v1.Job.meeps-dev.meeps-db-migrate-day93	2026-11-14 18:14:44
++++ /var/folders/5j/03_96mdx5jg320pnxnp4stw40000gn/T/MERGED-2632337992/batch.v1.Job.meeps-dev.meeps-db-migrate-day93	2026-11-14 18:14:44
+@@ -0,0 +1,153 @@
++apiVersion: batch/v1
++kind: Job
++metadata:
++  creationTimestamp: "2026-11-14T17:14:44Z"
++  generation: 1
++  labels:
++    app.kubernetes.io/component: migration
++    app.kubernetes.io/instance: meeps-dev
++    app.kubernetes.io/name: meeps-db-migration
++    batch.kubernetes.io/controller-uid: 68208a26-64b0-4573-b984-2474f4813890
++    batch.kubernetes.io/job-name: meeps-db-migrate-day93
++    controller-uid: 68208a26-64b0-4573-b984-2474f4813890
++    job-name: meeps-db-migrate-day93
++  name: meeps-db-migrate-day93
++  namespace: meeps-dev
++  uid: 68208a26-64b0-4573-b984-2474f4813890
++spec:
++  activeDeadlineSeconds: 300
++  backoffLimit: 0
++  completionMode: NonIndexed
++  completions: 1
++  manualSelector: false
++  parallelism: 1
++  podReplacementPolicy: TerminatingOrFailed
++  selector:
++    matchLabels:
++      batch.kubernetes.io/controller-uid: 68208a26-64b0-4573-b984-2474f4813890
++  suspend: false
++  template:
++    metadata:
++      labels:
++        app.kubernetes.io/component: migration
++        app.kubernetes.io/instance: meeps-dev
++        app.kubernetes.io/name: meeps-db-migration
++        batch.kubernetes.io/controller-uid: 68208a26-64b0-4573-b984-2474f4813890
++        batch.kubernetes.io/job-name: meeps-db-migrate-day93
++        controller-uid: 68208a26-64b0-4573-b984-2474f4813890
++        job-name: meeps-db-migrate-day93
++    spec:
++      automountServiceAccountToken: false
++      containers:
++      - args:
++        - |
++          import subprocess
++          from sqlalchemy import create_engine, inspect, text
++          from app.config import settings
++
++          engine = create_engine(
++              settings.DATABASE_URL,
++              isolation_level="AUTOCOMMIT",
++          )
++
++          with engine.connect() as connection:
++              locked = connection.execute(
++                  text("SELECT pg_try_advisory_lock(93001)")
++              ).scalar_one()
++
++              if not locked:
++                  raise RuntimeError("Another migration holds the lab lock.")
++
++              try:
++                  subprocess.run(
++                      ["alembic", "upgrade", "head"],
++                      check=True,
++                  )
++
++                  subprocess.run(
++                      ["alembic", "current", "--check-heads"],
++                      check=True,
++                  )
++
++                  required = {"users", "posts", "alembic_version"}
++                  tables = set(
++                      inspect(connection).get_table_names(schema="public")
++                  )
++                  missing = required - tables
++
++                  if missing:
++                      raise RuntimeError(
++                          f"Missing tables: {sorted(missing)}"
++                      )
++
++                  result = connection.execute(
++                      text("SELECT 1")
++                  ).scalar_one()
++
++                  if result != 1:
++                      raise RuntimeError("Database query failed.")
++
++                  print("Database query: PASS", flush=True)
++                  print(
++                      "Required tables:",
++                      ", ".join(sorted(required)),
++                      flush=True,
++                  )
++                  print("DAY 93 MIGRATION CHECKS PASSED", flush=True)
++
++              finally:
++                  connection.execute(
++                      text("SELECT pg_advisory_unlock(93001)")
++                  )
++
++          engine.dispose()
++        command:
++        - python
++        - -c
++        env:
++        - name: DATABASE_URL
++          valueFrom:
++            secretKeyRef:
++              key: DATABASE_URL
++              name: meeps-db-credentials
++        - name: PGCONNECT_TIMEOUT
++          value: "5"
++        image: meeps-users-posts-api:k8s-baseline
++        imagePullPolicy: Never
++        name: migrate
++        resources:
++          limits:
++            cpu: 500m
++            memory: 256Mi
++          requests:
++            cpu: 50m
++            memory: 128Mi
++        securityContext:
++          allowPrivilegeEscalation: false
++          capabilities:
++            drop:
++            - ALL
++          readOnlyRootFilesystem: true
++        terminationMessagePath: /dev/termination-log
++        terminationMessagePolicy: File
++        volumeMounts:
++        - mountPath: /tmp
++          name: tmp
++      dnsPolicy: ClusterFirst
++      restartPolicy: Never
++      schedulerName: default-scheduler
++      securityContext:
++        fsGroup: 10001
++        runAsGroup: 10001
++        runAsNonRoot: true
++        runAsUser: 10001
++        seccompProfile:
++          type: RuntimeDefault
++      serviceAccount: meeps-workloads
++      serviceAccountName: meeps-workloads
++      terminationGracePeriodSeconds: 30
++      volumes:
++      - emptyDir: {}
++        name: tmp
++  ttlSecondsAfterFinished: 86400
++status: {}
+
+
+kubernetes/cluster/metrics-server/components-v0.9.1.yaml Deployment/metrics-server
+diff -u -N /var/folders/5j/03_96mdx5jg320pnxnp4stw40000gn/T/LIVE-376880842/apps.v1.Deployment.kube-system.metrics-server /var/folders/5j/03_96mdx5jg320pnxnp4stw40000gn/T/MERGED-3395628836/apps.v1.Deployment.kube-system.metrics-server
+--- /var/folders/5j/03_96mdx5jg320pnxnp4stw40000gn/T/LIVE-376880842/apps.v1.Deployment.kube-system.metrics-server	2026-11-14 18:14:57
++++ /var/folders/5j/03_96mdx5jg320pnxnp4stw40000gn/T/MERGED-3395628836/apps.v1.Deployment.kube-system.metrics-server	2026-11-14 18:14:57
+@@ -6,7 +6,7 @@
+     kubectl.kubernetes.io/last-applied-configuration: |
+       {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"k8s-app":"metrics-server"},"name":"metrics-server","namespace":"kube-system"},"spec":{"selector":{"matchLabels":{"k8s-app":"metrics-server"}},"strategy":{"rollingUpdate":{"maxUnavailable":0}},"template":{"metadata":{"labels":{"k8s-app":"metrics-server"}},"spec":{"containers":[{"args":["--cert-dir=/tmp","--secure-port=10250","--kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname","--kubelet-use-node-status-port","--metric-resolution=15s"],"image":"registry.k8s.io/metrics-server/metrics-server:v0.9.1","imagePullPolicy":"IfNotPresent","livenessProbe":{"failureThreshold":3,"httpGet":{"path":"/livez","port":"https","scheme":"HTTPS"},"periodSeconds":10},"name":"metrics-server","ports":[{"containerPort":10250,"name":"https","protocol":"TCP"}],"readinessProbe":{"failureThreshold":3,"httpGet":{"path":"/readyz","port":"https","scheme":"HTTPS"},"initialDelaySeconds":20,"periodSeconds":10},"resources":{"requests":{"cpu":"100m","memory":"200Mi"}},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000,"seccompProfile":{"type":"RuntimeDefault"}},"volumeMounts":[{"mountPath":"/tmp","name":"tmp-dir"}]}],"nodeSelector":{"kubernetes.io/os":"linux"},"priorityClassName":"system-cluster-critical","serviceAccountName":"metrics-server","volumes":[{"emptyDir":{},"name":"tmp-dir"}]}}}}
+   creationTimestamp: "2026-11-12T10:17:01Z"
+-  generation: 12
++  generation: 13
+   labels:
+     k8s-app: metrics-server
+   name: metrics-server
+@@ -39,7 +39,6 @@
+         - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+         - --kubelet-use-node-status-port
+         - --metric-resolution=15s
+-        - --kubelet-insecure-tls
+         image: registry.k8s.io/metrics-server/metrics-server:v0.9.1
+         imagePullPolicy: IfNotPresent
+         livenessProbe:

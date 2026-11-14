@@ -1,0 +1,252 @@
+===== NODES AFTER CLEANUP =====
+NAME                              STATUS   ROLES           AGE   VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE                       KERNEL-VERSION            CONTAINER-RUNTIME
+meeps-k8s-cluster-control-plane   Ready    control-plane   43d   v1.37.0   172.22.0.3    <none>        Debian GNU/Linux 13 (trixie)   7.0.12-linuxkit (amd64)   containerd://2.3.4
+meeps-k8s-cluster-worker          Ready    <none>          43d   v1.37.0   172.22.0.4    <none>        Debian GNU/Linux 13 (trixie)   7.0.12-linuxkit (amd64)   containerd://2.3.4
+meeps-k8s-cluster-worker2         Ready    <none>          43d   v1.37.0   172.22.0.2    <none>        Debian GNU/Linux 13 (trixie)   7.0.12-linuxkit (amd64)   containerd://2.3.4
+
+===== METRICS SERVER DEPLOYMENT =====
+NAME             READY   UP-TO-DATE   AVAILABLE   AGE    CONTAINERS       IMAGES                                                 SELECTOR
+metrics-server   1/1     1            1           2d5h   metrics-server   registry.k8s.io/metrics-server/metrics-server:v0.9.1   k8s-app=metrics-server
+
+===== METRICS SERVER REPLICASETS AND PODS =====
+NAME                                        DESIRED   CURRENT   READY   AGE    CONTAINERS       IMAGES                                                 SELECTOR
+replicaset.apps/metrics-server-57cf4f9856   0         0         0       22h    metrics-server   registry.k8s.io/metrics-server/metrics-server:v0.9.1   k8s-app=metrics-server,pod-template-hash=57cf4f9856
+replicaset.apps/metrics-server-5fcc68c64b   0         0         0       2d4h   metrics-server   registry.k8s.io/metrics-server/metrics-server:v0.9.1   k8s-app=metrics-server,pod-template-hash=5fcc68c64b
+replicaset.apps/metrics-server-65cb859d58   0         0         0       20m    metrics-server   registry.k8s.io/metrics-server/metrics-server:v0.9.1   k8s-app=metrics-server,pod-template-hash=65cb859d58
+replicaset.apps/metrics-server-6694d85c44   0         0         0       2d5h   metrics-server   registry.k8s.io/metrics-server/metrics-server:v0.9.1   k8s-app=metrics-server,pod-template-hash=6694d85c44
+replicaset.apps/metrics-server-674c47f98f   0         0         0       22h    metrics-server   registry.k8s.io/metrics-server/metrics-server:v0.9.1   k8s-app=metrics-server,pod-template-hash=674c47f98f
+replicaset.apps/metrics-server-679bb5c8d9   0         0         0       2d4h   metrics-server   registry.k8s.io/metrics-server/metrics-server:v0.9.1   k8s-app=metrics-server,pod-template-hash=679bb5c8d9
+replicaset.apps/metrics-server-695ccf8599   1         1         1       13m    metrics-server   registry.k8s.io/metrics-server/metrics-server:v0.9.1   k8s-app=metrics-server,pod-template-hash=695ccf8599
+replicaset.apps/metrics-server-76558b4bb9   0         0         0       2d5h   metrics-server   registry.k8s.io/metrics-server/metrics-server:v0.9.1   k8s-app=metrics-server,pod-template-hash=76558b4bb9
+replicaset.apps/metrics-server-796746d7c5   0         0         0       2d4h   metrics-server   registry.k8s.io/metrics-server/metrics-server:v0.9.1   k8s-app=metrics-server,pod-template-hash=796746d7c5
+replicaset.apps/metrics-server-89478d89c    0         0         0       24m    metrics-server   registry.k8s.io/metrics-server/metrics-server:v0.9.1   k8s-app=metrics-server,pod-template-hash=89478d89c
+
+NAME                                  READY   STATUS    RESTARTS   AGE   IP           NODE                        NOMINATED NODE   READINESS GATES
+pod/metrics-server-695ccf8599-g5xbd   1/1     Running   0          13m   10.244.2.7   meeps-k8s-cluster-worker2   <none>           <none>
+
+===== POD READINESS AND DELETION STATE =====
+NAME                              NODE                        PHASE     READY   WAITING   DELETING
+metrics-server-695ccf8599-g5xbd   meeps-k8s-cluster-worker2   Running   true    <none>    <none>
+
+===== DEPLOYMENT CONFIGURATION AND EVENTS =====
+Name:                   metrics-server
+Namespace:              kube-system
+CreationTimestamp:      Thu, 12 Nov 2026 11:17:01 +0100
+Labels:                 k8s-app=metrics-server
+Annotations:            deployment.kubernetes.io/revision: 11
+Selector:               k8s-app=metrics-server
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  0 max unavailable, 25% max surge
+Pod Template:
+  Labels:           k8s-app=metrics-server
+  Annotations:      kubectl.kubernetes.io/restartedAt: 2026-11-14T16:45:23+01:00
+  Service Account:  metrics-server
+  Containers:
+   metrics-server:
+    Image:           registry.k8s.io/metrics-server/metrics-server:v0.9.1
+    Port:            10250/TCP (https)
+    Host Port:       0/TCP (https)
+    SeccompProfile:  RuntimeDefault
+    Args:
+      --cert-dir=/tmp
+      --secure-port=10250
+      --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+      --kubelet-use-node-status-port
+      --metric-resolution=15s
+      --kubelet-insecure-tls
+    Requests:
+      cpu:        100m
+      memory:     200Mi
+    Liveness:     http-get https://:https/livez delay=0s timeout=1s period=10s #success=1 #failure=3
+    Readiness:    http-get https://:https/readyz delay=20s timeout=1s period=10s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /tmp from tmp-dir (rw)
+  Volumes:
+   tmp-dir:
+    Type:               EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:             
+    SizeLimit:          <unset>
+  Priority Class Name:  system-cluster-critical
+  Node-Selectors:       kubernetes.io/hostname=meeps-k8s-cluster-worker2
+                        kubernetes.io/os=linux
+  Tolerations:          <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  metrics-server-6694d85c44 (0/0 replicas created), metrics-server-76558b4bb9 (0/0 replicas created), metrics-server-5fcc68c64b (0/0 replicas created), metrics-server-796746d7c5 (0/0 replicas created), metrics-server-679bb5c8d9 (0/0 replicas created), metrics-server-57cf4f9856 (0/0 replicas created), metrics-server-674c47f98f (0/0 replicas created), metrics-server-89478d89c (0/0 replicas created), metrics-server-65cb859d58 (0/0 replicas created)
+NewReplicaSet:   metrics-server-695ccf8599 (1/1 replicas created)
+Events:
+  Type    Reason             Age    From                   Message
+  ----    ------             ----   ----                   -------
+  Normal  ScalingReplicaSet  22h    deployment-controller  Scaled up replica set metrics-server-57cf4f9856 from 0 to 1
+  Normal  ScalingReplicaSet  22h    deployment-controller  Scaled down replica set metrics-server-5fcc68c64b from 1 to 0
+  Normal  ScalingReplicaSet  22h    deployment-controller  Scaled up replica set metrics-server-674c47f98f from 0 to 1
+  Normal  ScalingReplicaSet  22h    deployment-controller  Scaled down replica set metrics-server-57cf4f9856 from 1 to 0
+  Normal  ScalingReplicaSet  24m    deployment-controller  Scaled up replica set metrics-server-89478d89c from 0 to 1
+  Normal  ScalingReplicaSet  20m    deployment-controller  Scaled down replica set metrics-server-89478d89c from 1 to 0
+  Normal  ScalingReplicaSet  20m    deployment-controller  Scaled up replica set metrics-server-65cb859d58 from 0 to 1
+  Normal  ScalingReplicaSet  15m    deployment-controller  Scaled down replica set metrics-server-674c47f98f from 1 to 0
+  Normal  ScalingReplicaSet  13m    deployment-controller  Scaled up replica set metrics-server-695ccf8599 from 0 to 1
+  Normal  ScalingReplicaSet  9m23s  deployment-controller  Scaled down replica set metrics-server-65cb859d58 from 1 to 0
+
+===== METRICS SERVER POD DETAILS AND EVENTS =====
+Name:                 metrics-server-695ccf8599-g5xbd
+Namespace:            kube-system
+Priority:             2000000000
+Priority Class Name:  system-cluster-critical
+Service Account:      metrics-server
+Node:                 meeps-k8s-cluster-worker2/172.22.0.2
+Start Time:           Sat, 14 Nov 2026 16:49:23 +0100
+Labels:               k8s-app=metrics-server
+                      pod-template-hash=695ccf8599
+Annotations:          kubectl.kubernetes.io/restartedAt: 2026-11-14T16:45:23+01:00
+Status:               Running
+IP:                   10.244.2.7
+IPs:
+  IP:           10.244.2.7
+Controlled By:  ReplicaSet/metrics-server-695ccf8599
+Containers:
+  metrics-server:
+    Container ID:    containerd://fc12603d143e6445b24931e1fa7a0cb82ef38d91fc5e5e9529be9deabc68e7d3
+    Image:           registry.k8s.io/metrics-server/metrics-server:v0.9.1
+    Image ID:        registry.k8s.io/metrics-server/metrics-server@sha256:9b0ba1926e1d3089673f45461c3c1416109dea33b3ba3434048defd380df329b
+    Port:            10250/TCP (https)
+    Host Port:       0/TCP (https)
+    SeccompProfile:  RuntimeDefault
+    Args:
+      --cert-dir=/tmp
+      --secure-port=10250
+      --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+      --kubelet-use-node-status-port
+      --metric-resolution=15s
+      --kubelet-insecure-tls
+    State:          Running
+      Started:      Sat, 14 Nov 2026 16:49:24 +0100
+    Ready:          True
+    Restart Count:  0
+    Requests:
+      cpu:        100m
+      memory:     200Mi
+    Liveness:     http-get https://:https/livez delay=0s timeout=1s period=10s #success=1 #failure=3
+    Readiness:    http-get https://:https/readyz delay=20s timeout=1s period=10s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /tmp from tmp-dir (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-7m8nz (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  tmp-dir:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  <unset>
+  kube-api-access-7m8nz:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              kubernetes.io/hostname=meeps-k8s-cluster-worker2
+                             kubernetes.io/os=linux
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason            Age    From               Message
+  ----     ------            ----   ----               -------
+  Warning  FailedScheduling  13m    default-scheduler  0/3 nodes are available: 1 node(s) didn't match Pod's node affinity/selector, 1 node(s) had untolerated taint(s), 1 node(s) were unschedulable. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling.
+  Warning  FailedScheduling  9m46s  default-scheduler  0/3 nodes are available: 1 node(s) didn't match Pod's node affinity/selector, 2 node(s) had untolerated taint(s). preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling.
+  Normal   Scheduled         9m46s  default-scheduler  Successfully assigned kube-system/metrics-server-695ccf8599-g5xbd to meeps-k8s-cluster-worker2
+  Normal   Pulled            9m45s  kubelet            spec.containers{metrics-server}: Container image "registry.k8s.io/metrics-server/metrics-server:v0.9.1" already present on machine and can be accessed by the pod
+  Normal   Created           9m45s  kubelet            spec.containers{metrics-server}: Container created
+  Normal   Started           9m45s  kubelet            spec.containers{metrics-server}: Container started
+
+===== LOGS FROM EACH METRICS SERVER POD =====
+
+--- pod/metrics-server-695ccf8599-g5xbd ---
+[pod/metrics-server-695ccf8599-g5xbd/metrics-server] 2026-11-14T15:49:25.635082868Z I1114 15:49:25.634620       1 serving.go:405] Generated self-signed cert (/tmp/apiserver.crt, /tmp/apiserver.key)
+[pod/metrics-server-695ccf8599-g5xbd/metrics-server] 2026-11-14T15:49:25.749232803Z I1114 15:49:25.748940       1 handler.go:304] Adding GroupVersion metrics.k8s.io v1beta1 to ResourceManager
+[pod/metrics-server-695ccf8599-g5xbd/metrics-server] 2026-11-14T15:49:25.866572609Z I1114 15:49:25.866175       1 requestheader_controller.go:180] Starting RequestHeaderAuthRequestController
+[pod/metrics-server-695ccf8599-g5xbd/metrics-server] 2026-11-14T15:49:25.866644984Z I1114 15:49:25.866267       1 shared_informer.go:402] "Waiting for caches to sync"
+[pod/metrics-server-695ccf8599-g5xbd/metrics-server] 2026-11-14T15:49:25.866657652Z I1114 15:49:25.866309       1 configmap_cafile_content.go:205] "Starting controller" name="client-ca::kube-system::extension-apiserver-authentication::requestheader-client-ca-file"
+[pod/metrics-server-695ccf8599-g5xbd/metrics-server] 2026-11-14T15:49:25.866663631Z I1114 15:49:25.866370       1 shared_informer.go:402] "Waiting for caches to sync"
+[pod/metrics-server-695ccf8599-g5xbd/metrics-server] 2026-11-14T15:49:25.866667227Z I1114 15:49:25.866269       1 configmap_cafile_content.go:205] "Starting controller" name="client-ca::kube-system::extension-apiserver-authentication::client-ca-file"
+[pod/metrics-server-695ccf8599-g5xbd/metrics-server] 2026-11-14T15:49:25.866670558Z I1114 15:49:25.866404       1 shared_informer.go:402] "Waiting for caches to sync"
+[pod/metrics-server-695ccf8599-g5xbd/metrics-server] 2026-11-14T15:49:25.870227668Z I1114 15:49:25.867111       1 dynamic_serving_content.go:135] "Starting controller" name="serving-cert::/tmp/apiserver.crt::/tmp/apiserver.key"
+[pod/metrics-server-695ccf8599-g5xbd/metrics-server] 2026-11-14T15:49:25.870273561Z I1114 15:49:25.867391       1 secure_serving.go:214] Serving securely on [::]:10250
+[pod/metrics-server-695ccf8599-g5xbd/metrics-server] 2026-11-14T15:49:25.870282049Z I1114 15:49:25.867444       1 tlsconfig.go:243] "Starting DynamicServingCertificateController"
+[pod/metrics-server-695ccf8599-g5xbd/metrics-server] 2026-11-14T15:49:25.967891103Z I1114 15:49:25.967517       1 shared_informer.go:409] "Caches are synced"
+[pod/metrics-server-695ccf8599-g5xbd/metrics-server] 2026-11-14T15:49:25.967927376Z I1114 15:49:25.967573       1 shared_informer.go:409] "Caches are synced"
+[pod/metrics-server-695ccf8599-g5xbd/metrics-server] 2026-11-14T15:49:25.967931722Z I1114 15:49:25.967687       1 shared_informer.go:409] "Caches are synced"
+
+===== RECENT SYSTEM EVENTS =====
+60m         Normal    Started                pod/etcd-meeps-k8s-cluster-control-plane                      Container started
+60m         Normal    Created                pod/etcd-meeps-k8s-cluster-control-plane                      Container created
+59m         Warning   Unhealthy              pod/coredns-559f6c778d-l6ks2                                  Readiness probe failed: HTTP probe failed with statuscode: 503
+59m         Warning   Unhealthy              pod/coredns-559f6c778d-7njb9                                  Readiness probe failed: HTTP probe failed with statuscode: 503
+60m         Normal    LeaderElection         lease/kube-scheduler                                          meeps-k8s-cluster-control-plane_567a0876-a5ec-4918-a540-655550ce8d8b became leader
+60m         Normal    LeaderElection         lease/kube-controller-manager                                 meeps-k8s-cluster-control-plane_e0ed026b-defd-48dd-8159-d0d0ef84f7bd became leader
+29m         Warning   Unhealthy              pod/metrics-server-674c47f98f-2vwgx                           Readiness probe failed: Get "https://10.244.2.4:10250/readyz": net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)
+24m         Normal    ScalingReplicaSet      deployment/metrics-server                                     Scaled up replica set metrics-server-89478d89c from 0 to 1
+24m         Warning   FailedScheduling       pod/metrics-server-89478d89c-bxmht                            0/3 nodes are available: 1 node(s) didn't match Pod's node affinity/selector, 1 node(s) had untolerated taint(s), 1 node(s) were unschedulable. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling.
+24m         Normal    SuccessfulCreate       replicaset/metrics-server-89478d89c                           Created pod: metrics-server-89478d89c-bxmht
+20m         Warning   FailedScheduling       pod/metrics-server-89478d89c-bxmht                            0/3 nodes are available: 1 node(s) didn't match Pod's node affinity/selector, 2 node(s) had untolerated taint(s). preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling.
+20m         Normal    Scheduled              pod/metrics-server-89478d89c-bxmht                            Successfully assigned kube-system/metrics-server-89478d89c-bxmht to meeps-k8s-cluster-worker2
+20m         Normal    Started                pod/metrics-server-89478d89c-bxmht                            Container started
+20m         Normal    Pulled                 pod/metrics-server-89478d89c-bxmht                            Container image "registry.k8s.io/metrics-server/metrics-server:v0.9.1" already present on machine and can be accessed by the pod
+20m         Normal    Created                pod/metrics-server-89478d89c-bxmht                            Container created
+20m         Normal    Killing                pod/metrics-server-89478d89c-bxmht                            Stopping container metrics-server
+20m         Normal    SuccessfulDelete       replicaset/metrics-server-89478d89c                           Deleted pod: metrics-server-89478d89c-bxmht
+20m         Warning   FailedScheduling       pod/metrics-server-65cb859d58-kf9jf                           0/3 nodes are available: 1 node(s) didn't match Pod's node affinity/selector, 1 node(s) had untolerated taint(s), 1 node(s) were unschedulable. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling.
+20m         Normal    ScalingReplicaSet      deployment/metrics-server                                     Scaled down replica set metrics-server-89478d89c from 1 to 0
+20m         Normal    ScalingReplicaSet      deployment/metrics-server                                     Scaled up replica set metrics-server-65cb859d58 from 0 to 1
+20m         Normal    SuccessfulCreate       replicaset/metrics-server-65cb859d58                          Created pod: metrics-server-65cb859d58-kf9jf
+16m         Warning   FailedScheduling       pod/metrics-server-65cb859d58-kf9jf                           0/3 nodes are available: 1 node(s) didn't match Pod's node affinity/selector, 2 node(s) had untolerated taint(s). preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling.
+16m         Normal    Scheduled              pod/metrics-server-65cb859d58-kf9jf                           Successfully assigned kube-system/metrics-server-65cb859d58-kf9jf to meeps-k8s-cluster-worker2
+16m         Normal    Pulled                 pod/metrics-server-65cb859d58-kf9jf                           Container image "registry.k8s.io/metrics-server/metrics-server:v0.9.1" already present on machine and can be accessed by the pod
+16m         Normal    Created                pod/metrics-server-65cb859d58-kf9jf                           Container created
+16m         Normal    Started                pod/metrics-server-65cb859d58-kf9jf                           Container started
+15m         Normal    Killing                pod/metrics-server-674c47f98f-2vwgx                           Stopping container metrics-server
+15m         Normal    SuccessfulDelete       replicaset/metrics-server-674c47f98f                          Deleted pod: metrics-server-674c47f98f-2vwgx
+15m         Normal    ScalingReplicaSet      deployment/metrics-server                                     Scaled down replica set metrics-server-674c47f98f from 1 to 0
+13m         Normal    ScalingReplicaSet      deployment/metrics-server                                     Scaled up replica set metrics-server-695ccf8599 from 0 to 1
+13m         Normal    SuccessfulCreate       replicaset/metrics-server-695ccf8599                          Created pod: metrics-server-695ccf8599-g5xbd
+13m         Warning   FailedScheduling       pod/metrics-server-695ccf8599-g5xbd                           0/3 nodes are available: 1 node(s) didn't match Pod's node affinity/selector, 1 node(s) had untolerated taint(s), 1 node(s) were unschedulable. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling.
+9m47s       Normal    Scheduled              pod/metrics-server-695ccf8599-g5xbd                           Successfully assigned kube-system/metrics-server-695ccf8599-g5xbd to meeps-k8s-cluster-worker2
+9m47s       Warning   FailedScheduling       pod/metrics-server-695ccf8599-g5xbd                           0/3 nodes are available: 1 node(s) didn't match Pod's node affinity/selector, 2 node(s) had untolerated taint(s). preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling.
+9m46s       Normal    Pulled                 pod/metrics-server-695ccf8599-g5xbd                           Container image "registry.k8s.io/metrics-server/metrics-server:v0.9.1" already present on machine and can be accessed by the pod
+9m46s       Normal    Created                pod/metrics-server-695ccf8599-g5xbd                           Container created
+9m46s       Normal    Started                pod/metrics-server-695ccf8599-g5xbd                           Container started
+9m24s       Normal    SuccessfulDelete       replicaset/metrics-server-65cb859d58                          Deleted pod: metrics-server-65cb859d58-kf9jf
+9m24s       Normal    Killing                pod/metrics-server-65cb859d58-kf9jf                           Stopping container metrics-server
+9m24s       Normal    ScalingReplicaSet      deployment/metrics-server                                     Scaled down replica set metrics-server-65cb859d58 from 1 to 0
+
+===== METRICS API STATUS =====
+NAME                     SERVICE                      AVAILABLE   AGE
+v1beta1.metrics.k8s.io   kube-system/metrics-server   True        2d5h
+
+===== APPLICATION AND DATABASE STATUS =====
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/meeps-api   2/2     2            2           39d
+
+NAME                                            REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/meeps-api   Deployment/meeps-api   cpu: 5%/60%   2         5         2          22h
+
+NAME                                   MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+poddisruptionbudget.policy/meeps-api   1               N/A               1                     22h
+
+NAME             READY   STATUS    RESTARTS       AGE
+pod/postgres-0   1/1     Running   13 (60m ago)   41d
+
+NAME                                             STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/postgres-data-postgres-0   Bound    pvc-f29efa61-733a-4e24-902a-9efcc6bf6996   1Gi        RWO            standard       <unset>                 41d

@@ -1,0 +1,492 @@
+{
+  "pod": {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "creationTimestamp": "2026-11-14T16:48:24Z",
+      "generateName": "meeps-day98-canary-7d6c4c584d-",
+      "generation": 1,
+      "labels": {
+        "app.kubernetes.io/instance": "meeps-dev",
+        "app.kubernetes.io/name": "meeps-day98-canary",
+        "meeps.dev/day98-owner": "failure-lab-v1",
+        "pod-template-hash": "7d6c4c584d"
+      },
+      "name": "meeps-day98-canary-7d6c4c584d-pzn68",
+      "namespace": "meeps-dev",
+      "ownerReferences": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "meeps-day98-canary-7d6c4c584d",
+          "uid": "3cf11cbc-709d-4562-a2d8-562a0f02ee91"
+        }
+      ],
+      "resourceVersion": "123270",
+      "uid": "88cec507-1c9d-4c95-a698-82f25c88b385"
+    },
+    "spec": {
+      "automountServiceAccountToken": false,
+      "containers": [
+        {
+          "args": [
+            "import sys; print('DAY98_INTENTIONAL_CRASH',flush=True); sys.exit(42)"
+          ],
+          "command": [
+            "python",
+            "-c"
+          ],
+          "env": [
+            {
+              "name": "DATABASE_URL",
+              "valueFrom": {
+                "secretKeyRef": {
+                  "key": "DATABASE_URL",
+                  "name": "meeps-api-credentials"
+                }
+              }
+            }
+          ],
+          "envFrom": [
+            {
+              "configMapRef": {
+                "name": "meeps-api-config"
+              }
+            }
+          ],
+          "image": "meeps-users-posts-api:week14-v2",
+          "imagePullPolicy": "Never",
+          "livenessProbe": {
+            "failureThreshold": 3,
+            "httpGet": {
+              "path": "/health",
+              "port": "http",
+              "scheme": "HTTP"
+            },
+            "periodSeconds": 10,
+            "successThreshold": 1,
+            "timeoutSeconds": 2
+          },
+          "name": "api",
+          "ports": [
+            {
+              "containerPort": 8000,
+              "name": "http",
+              "protocol": "TCP"
+            }
+          ],
+          "readinessProbe": {
+            "failureThreshold": 2,
+            "httpGet": {
+              "path": "/ready",
+              "port": "http",
+              "scheme": "HTTP"
+            },
+            "periodSeconds": 5,
+            "successThreshold": 1,
+            "timeoutSeconds": 5
+          },
+          "resources": {
+            "limits": {
+              "cpu": "500m",
+              "memory": "256Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "128Mi"
+            }
+          },
+          "securityContext": {
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            },
+            "readOnlyRootFilesystem": true
+          },
+          "startupProbe": {
+            "failureThreshold": 24,
+            "httpGet": {
+              "path": "/health",
+              "port": "http",
+              "scheme": "HTTP"
+            },
+            "periodSeconds": 5,
+            "successThreshold": 1,
+            "timeoutSeconds": 2
+          },
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/tmp",
+              "name": "tmp"
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "enableServiceLinks": true,
+      "nodeName": "meeps-k8s-cluster-worker2",
+      "nodeSelector": {
+        "meeps.dev/node-pool": "worker"
+      },
+      "preemptionPolicy": "PreemptLowerPriority",
+      "priority": 0,
+      "restartPolicy": "Always",
+      "schedulerName": "default-scheduler",
+      "securityContext": {
+        "fsGroup": 10001,
+        "runAsGroup": 10001,
+        "runAsNonRoot": true,
+        "runAsUser": 10001,
+        "seccompProfile": {
+          "type": "RuntimeDefault"
+        }
+      },
+      "serviceAccount": "meeps-api",
+      "serviceAccountName": "meeps-api",
+      "terminationGracePeriodSeconds": 30,
+      "tolerations": [
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/not-ready",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        }
+      ],
+      "volumes": [
+        {
+          "emptyDir": {
+            "sizeLimit": "64Mi"
+          },
+          "name": "tmp"
+        }
+      ]
+    },
+    "status": {
+      "allocatedResources": {
+        "cpu": "100m",
+        "memory": "128Mi"
+      },
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-11-14T16:48:26Z",
+          "observedGeneration": 1,
+          "status": "True",
+          "type": "PodReadyToStartContainers"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-11-14T16:48:24Z",
+          "observedGeneration": 1,
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-11-14T16:48:24Z",
+          "message": "containers with unready status: [api]",
+          "observedGeneration": 1,
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-11-14T16:48:24Z",
+          "message": "containers with unready status: [api]",
+          "observedGeneration": 1,
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-11-14T16:48:24Z",
+          "observedGeneration": 1,
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "containerStatuses": [
+        {
+          "allocatedResources": {
+            "cpu": "100m",
+            "memory": "128Mi"
+          },
+          "containerID": "containerd://a2a74e10d65e1654949eff6d2c811a9ff0db9afd01b593b3e24ff1aac9893e2f",
+          "image": "docker.io/library/meeps-users-posts-api:week14-v2",
+          "imageID": "docker.io/library/import-2026-11-11@sha256:2ca9bd3260c5976d5a98f8c96e2adb767643882a140a34e5b4bd9f531f190fce",
+          "lastState": {
+            "terminated": {
+              "containerID": "containerd://a2a74e10d65e1654949eff6d2c811a9ff0db9afd01b593b3e24ff1aac9893e2f",
+              "exitCode": 42,
+              "finishedAt": "2026-11-14T16:48:28Z",
+              "reason": "Error",
+              "startedAt": "2026-11-14T16:48:28Z"
+            }
+          },
+          "name": "api",
+          "ready": false,
+          "resources": {
+            "limits": {
+              "cpu": "500m",
+              "memory": "256Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "128Mi"
+            }
+          },
+          "restartCount": 1,
+          "started": false,
+          "state": {
+            "waiting": {
+              "message": "back-off 10s restarting failed container=api pod=meeps-day98-canary-7d6c4c584d-pzn68_meeps-dev(88cec507-1c9d-4c95-a698-82f25c88b385)",
+              "reason": "CrashLoopBackOff"
+            }
+          },
+          "user": {
+            "linux": {
+              "gid": 10001,
+              "supplementalGroups": [
+                10001
+              ],
+              "uid": 10001
+            }
+          },
+          "volumeMounts": [
+            {
+              "mountPath": "/tmp",
+              "name": "tmp"
+            }
+          ]
+        }
+      ],
+      "hostIP": "172.22.0.2",
+      "hostIPs": [
+        {
+          "ip": "172.22.0.2"
+        }
+      ],
+      "observedGeneration": 1,
+      "phase": "Running",
+      "podIP": "10.244.2.16",
+      "podIPs": [
+        {
+          "ip": "10.244.2.16"
+        }
+      ],
+      "qosClass": "Burstable",
+      "resources": {
+        "limits": {
+          "cpu": "500m",
+          "memory": "256Mi"
+        },
+        "requests": {
+          "cpu": "79m",
+          "memory": "128Mi"
+        }
+      },
+      "startTime": "2026-11-14T16:48:24Z"
+    }
+  },
+  "events": [
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-11-14T16:48:24Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "meeps-day98-canary-7d6c4c584d-pzn68",
+        "namespace": "meeps-dev",
+        "resourceVersion": "123237",
+        "uid": "88cec507-1c9d-4c95-a698-82f25c88b385"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-11-14T16:48:24Z",
+      "message": "Successfully assigned meeps-dev/meeps-day98-canary-7d6c4c584d-pzn68 to meeps-k8s-cluster-worker2",
+      "metadata": {
+        "creationTimestamp": "2026-11-14T16:48:24Z",
+        "name": "meeps-day98-canary-7d6c4c584d-pzn68.18e7f7513fc46896",
+        "namespace": "meeps-dev",
+        "resourceVersion": "123244",
+        "uid": "bc2fec78-874e-410c-981f-5b29f43a3890"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "default-scheduler",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 2,
+      "eventTime": null,
+      "firstTimestamp": "2026-11-14T16:48:26Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{api}",
+        "kind": "Pod",
+        "name": "meeps-day98-canary-7d6c4c584d-pzn68",
+        "namespace": "meeps-dev",
+        "resourceVersion": "123240",
+        "uid": "88cec507-1c9d-4c95-a698-82f25c88b385"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-11-14T16:48:27Z",
+      "message": "Container image \"meeps-users-posts-api:week14-v2\" already present on machine and can be accessed by the pod",
+      "metadata": {
+        "creationTimestamp": "2026-11-14T16:48:26Z",
+        "name": "meeps-day98-canary-7d6c4c584d-pzn68.18e7f7518821ff31",
+        "namespace": "meeps-dev",
+        "resourceVersion": "123260",
+        "uid": "6fdd0a26-9e4c-47b5-88be-e0f1cb0c46f3"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "meeps-k8s-cluster-worker2",
+      "source": {
+        "component": "kubelet",
+        "host": "meeps-k8s-cluster-worker2"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 2,
+      "eventTime": null,
+      "firstTimestamp": "2026-11-14T16:48:26Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{api}",
+        "kind": "Pod",
+        "name": "meeps-day98-canary-7d6c4c584d-pzn68",
+        "namespace": "meeps-dev",
+        "resourceVersion": "123240",
+        "uid": "88cec507-1c9d-4c95-a698-82f25c88b385"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-11-14T16:48:27Z",
+      "message": "Container created",
+      "metadata": {
+        "creationTimestamp": "2026-11-14T16:48:26Z",
+        "name": "meeps-day98-canary-7d6c4c584d-pzn68.18e7f7518bffee87",
+        "namespace": "meeps-dev",
+        "resourceVersion": "123262",
+        "uid": "83f36ae7-2b13-4430-bad4-663de00d6735"
+      },
+      "reason": "Created",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "meeps-k8s-cluster-worker2",
+      "source": {
+        "component": "kubelet",
+        "host": "meeps-k8s-cluster-worker2"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 2,
+      "eventTime": null,
+      "firstTimestamp": "2026-11-14T16:48:26Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{api}",
+        "kind": "Pod",
+        "name": "meeps-day98-canary-7d6c4c584d-pzn68",
+        "namespace": "meeps-dev",
+        "resourceVersion": "123240",
+        "uid": "88cec507-1c9d-4c95-a698-82f25c88b385"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-11-14T16:48:28Z",
+      "message": "Container started",
+      "metadata": {
+        "creationTimestamp": "2026-11-14T16:48:26Z",
+        "name": "meeps-day98-canary-7d6c4c584d-pzn68.18e7f751b1242137",
+        "namespace": "meeps-dev",
+        "resourceVersion": "123263",
+        "uid": "fdbeeec4-1d41-4ddf-8eba-42b5d99b0e1f"
+      },
+      "reason": "Started",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "meeps-k8s-cluster-worker2",
+      "source": {
+        "component": "kubelet",
+        "host": "meeps-k8s-cluster-worker2"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 4,
+      "eventTime": null,
+      "firstTimestamp": "2026-11-14T16:48:28Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{api}",
+        "kind": "Pod",
+        "name": "meeps-day98-canary-7d6c4c584d-pzn68",
+        "namespace": "meeps-dev",
+        "resourceVersion": "123240",
+        "uid": "88cec507-1c9d-4c95-a698-82f25c88b385"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-11-14T16:48:31Z",
+      "message": "Back-off restarting failed container api in pod meeps-day98-canary-7d6c4c584d-pzn68_meeps-dev(88cec507-1c9d-4c95-a698-82f25c88b385)",
+      "metadata": {
+        "creationTimestamp": "2026-11-14T16:48:28Z",
+        "name": "meeps-day98-canary-7d6c4c584d-pzn68.18e7f752299e636c",
+        "namespace": "meeps-dev",
+        "resourceVersion": "123274",
+        "uid": "f22a7bb5-4f1a-4f04-a31b-f669dd0ddcca"
+      },
+      "reason": "BackOff",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "meeps-k8s-cluster-worker2",
+      "source": {
+        "component": "kubelet",
+        "host": "meeps-k8s-cluster-worker2"
+      },
+      "type": "Warning"
+    }
+  ],
+  "endpoints": [
+    {
+      "addresses": [
+        "10.244.2.16"
+      ],
+      "conditions": {
+        "ready": false,
+        "serving": false,
+        "terminating": false
+      },
+      "nodeName": "meeps-k8s-cluster-worker2",
+      "targetRef": {
+        "kind": "Pod",
+        "name": "meeps-day98-canary-7d6c4c584d-pzn68",
+        "namespace": "meeps-dev",
+        "uid": "88cec507-1c9d-4c95-a698-82f25c88b385"
+      }
+    }
+  ],
+  "service_selector": {
+    "app.kubernetes.io/name": "meeps-day98-canary"
+  }
+}
