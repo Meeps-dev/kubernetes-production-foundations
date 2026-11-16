@@ -1,0 +1,11 @@
+Week 14 — Direct local cluster teardown
+Verified at: 2026-11-14T17:39:05Z
+
+Cluster: meeps-k8s-cluster
+Docker context: desktop-linux
+Named cluster absent from kind listing: verified
+Matching cluster containers absent: verified
+Known local lab credential files removed.
+Source files, documentation, external backups, and Docker images retained.
+
+This records teardown only; it does not mark unfinished lab checks as passed.

@@ -1,0 +1,37 @@
+Day 98 checkpoint: preflight | 2026-11-14T16:41:05.308355+00:00
+Day 98 live checks only. Day 97 drain deferred; no drain success claimed.
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                            SELECTOR
+deployment.apps/meeps-api   2/2     2            2           39d   api          meeps-users-posts-api:week14-v2   app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api
+
+NAME                             READY   STATUS    RESTARTS        AGE    IP           NODE                        NOMINATED NODE   READINESS GATES
+pod/meeps-api-5b9dd8bcff-c4jsf   1/1     Running   1 (102m ago)    23h    10.244.2.2   meeps-k8s-cluster-worker2   <none>           <none>
+pod/meeps-api-5b9dd8bcff-fczhp   1/1     Running   0               102m   10.244.1.4   meeps-k8s-cluster-worker    <none>           <none>
+pod/postgres-0                   1/1     Running   13 (102m ago)   41d    10.244.1.2   meeps-k8s-cluster-worker    <none>           <none>
+
+NAME                                            REFERENCE              TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/meeps-api   Deployment/meeps-api   cpu: 12%/60%   2         5         2          23h
+
+NAME                                   MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+poddisruptionbudget.policy/meeps-api   1               N/A               1                     23h
+
+NAME                        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE   SELECTOR
+service/meeps-api           ClusterIP   10.96.140.218   <none>        80/TCP     39d   app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api
+service/postgres            ClusterIP   10.96.67.37     <none>        5432/TCP   41d   app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=postgres
+service/postgres-headless   ClusterIP   None            <none>        5432/TCP   41d   app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=postgres
+
+NAME                                             STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE   VOLUMEMODE
+persistentvolumeclaim/postgres-data-postgres-0   Bound    pvc-f29efa61-733a-4e24-902a-9efcc6bf6996   1Gi        RWO            standard       <unset>                 41d   Filesystem
+
+{
+  "result": "PASS",
+  "mode": "GET-only",
+  "base_url": "http://traefik.traefik-system",
+  "release": {
+    "version": "week14-v2",
+    "pod": "meeps-api-5b9dd8bcff-fczhp"
+  },
+  "user_id": 1,
+  "post_id": 1
+}
+
+PREFLIGHT PASSED. Main workloads unchanged; no fault resources created.

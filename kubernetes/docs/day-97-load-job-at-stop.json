@@ -1,0 +1,126 @@
+{
+  "apiVersion": "batch/v1",
+  "kind": "Job",
+  "metadata": {
+    "creationTimestamp": "2026-11-13T17:22:11Z",
+    "generation": 1,
+    "labels": {
+      "app.kubernetes.io/name": "meeps-day97-load",
+      "batch.kubernetes.io/controller-uid": "444cd39d-f007-4b5d-ba99-14151841b155",
+      "batch.kubernetes.io/job-name": "meeps-day97-load",
+      "controller-uid": "444cd39d-f007-4b5d-ba99-14151841b155",
+      "job-name": "meeps-day97-load"
+    },
+    "name": "meeps-day97-load",
+    "namespace": "meeps-dev",
+    "resourceVersion": "108080",
+    "uid": "444cd39d-f007-4b5d-ba99-14151841b155"
+  },
+  "spec": {
+    "activeDeadlineSeconds": 660,
+    "backoffLimit": 0,
+    "completionMode": "NonIndexed",
+    "completions": 1,
+    "manualSelector": false,
+    "parallelism": 1,
+    "podReplacementPolicy": "TerminatingOrFailed",
+    "selector": {
+      "matchLabels": {
+        "batch.kubernetes.io/controller-uid": "444cd39d-f007-4b5d-ba99-14151841b155"
+      }
+    },
+    "suspend": false,
+    "template": {
+      "metadata": {
+        "labels": {
+          "app.kubernetes.io/name": "meeps-day97-load",
+          "batch.kubernetes.io/controller-uid": "444cd39d-f007-4b5d-ba99-14151841b155",
+          "batch.kubernetes.io/job-name": "meeps-day97-load",
+          "controller-uid": "444cd39d-f007-4b5d-ba99-14151841b155",
+          "job-name": "meeps-day97-load"
+        }
+      },
+      "spec": {
+        "automountServiceAccountToken": false,
+        "containers": [
+          {
+            "args": [
+              "--rps",
+              "200",
+              "--seconds",
+              "540",
+              "--concurrency",
+              "16"
+            ],
+            "command": [
+              "python",
+              "/load/load.py"
+            ],
+            "image": "meeps-users-posts-api:week14-v2",
+            "imagePullPolicy": "Never",
+            "name": "load",
+            "resources": {
+              "limits": {
+                "cpu": "500m",
+                "memory": "192Mi"
+              },
+              "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "readOnlyRootFilesystem": true
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/load",
+                "name": "load-script",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {
+          "runAsGroup": 10001,
+          "runAsNonRoot": true,
+          "runAsUser": 10001,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "serviceAccount": "meeps-api",
+        "serviceAccountName": "meeps-api",
+        "terminationGracePeriodSeconds": 10,
+        "volumes": [
+          {
+            "configMap": {
+              "defaultMode": 420,
+              "name": "meeps-day97-load"
+            },
+            "name": "load-script"
+          }
+        ]
+      }
+    },
+    "ttlSecondsAfterFinished": 3600
+  },
+  "status": {
+    "active": 1,
+    "ready": 1,
+    "startTime": "2026-11-13T17:22:11Z",
+    "terminating": 0,
+    "uncountedTerminatedPods": {}
+  }
+}

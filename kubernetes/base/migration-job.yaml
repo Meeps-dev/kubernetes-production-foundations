@@ -1,0 +1,131 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: meeps-db-migrate-day93
+  namespace: meeps-dev
+spec:
+  completions: 1
+  parallelism: 1
+  backoffLimit: 0
+  activeDeadlineSeconds: 300
+  ttlSecondsAfterFinished: 86400
+
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: meeps-db-migration
+        app.kubernetes.io/instance: meeps-dev
+        app.kubernetes.io/component: migration
+    spec:
+      restartPolicy: Never
+      serviceAccountName: meeps-workloads
+      automountServiceAccountToken: false
+
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+
+      containers:
+        - name: migrate
+          image: meeps-users-posts-api:k8s-baseline
+          imagePullPolicy: Never
+
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: meeps-db-credentials
+                  key: DATABASE_URL
+
+            - name: PGCONNECT_TIMEOUT
+              value: "5"
+
+          command: ["python", "-c"]
+          args:
+            - |
+              import subprocess
+              from sqlalchemy import create_engine, inspect, text
+              from app.config import settings
+
+              engine = create_engine(
+                  settings.DATABASE_URL,
+                  isolation_level="AUTOCOMMIT",
+              )
+
+              with engine.connect() as connection:
+                  locked = connection.execute(
+                      text("SELECT pg_try_advisory_lock(93001)")
+                  ).scalar_one()
+
+                  if not locked:
+                      raise RuntimeError("Another migration holds the lab lock.")
+
+                  try:
+                      subprocess.run(
+                          ["alembic", "upgrade", "head"],
+                          check=True,
+                      )
+
+                      subprocess.run(
+                          ["alembic", "current", "--check-heads"],
+                          check=True,
+                      )
+
+                      required = {"users", "posts", "alembic_version"}
+                      tables = set(
+                          inspect(connection).get_table_names(schema="public")
+                      )
+                      missing = required - tables
+
+                      if missing:
+                          raise RuntimeError(
+                              f"Missing tables: {sorted(missing)}"
+                          )
+
+                      result = connection.execute(
+                          text("SELECT 1")
+                      ).scalar_one()
+
+                      if result != 1:
+                          raise RuntimeError("Database query failed.")
+
+                      print("Database query: PASS", flush=True)
+                      print(
+                          "Required tables:",
+                          ", ".join(sorted(required)),
+                          flush=True,
+                      )
+                      print("DAY 93 MIGRATION CHECKS PASSED", flush=True)
+
+                  finally:
+                      connection.execute(
+                          text("SELECT pg_advisory_unlock(93001)")
+                      )
+
+              engine.dispose()
+
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+
+      volumes:
+        - name: tmp
+          emptyDir: {}

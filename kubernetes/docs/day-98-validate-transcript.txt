@@ -1,0 +1,108 @@
+Day 98 checkpoint: validate | 2026-11-14T17:14:34.476711+00:00
+DIFF ConfigMap/meeps-api-config exit=0
+kubernetes/base/api-configmap.yaml: canonical resource: security/image checks + server dry run + diff
+DIFF Deployment/meeps-api exit=0
+kubernetes/base/api-deployment.yaml: canonical resource: security/image checks + server dry run + diff
+DIFF Service/meeps-api exit=0
+kubernetes/base/api-service.yaml: canonical resource: security/image checks + server dry run + diff
+DIFF ServiceAccount/meeps-api exit=0
+kubernetes/base/api-serviceaccount.yaml: canonical resource: security/image checks + server dry run + diff
+DIFF ConfigMap/meeps-db-config exit=0
+DIFF ConfigMap/meeps-db-init exit=1
+kubernetes/base/configmap.yaml: canonical resource: security/image checks + server dry run + diff
+DIFF HorizontalPodAutoscaler/meeps-api exit=0
+kubernetes/base/hpa.yaml: canonical resource: security/image checks + server dry run + diff
+DIFF Ingress/meeps-api exit=0
+kubernetes/base/ingress.yaml: canonical resource: security/image checks + server dry run + diff
+DIFF Job/meeps-db-migrate-day93 exit=1
+kubernetes/base/migration-job.yaml: canonical resource: security/image checks + server dry run + diff
+DIFF Namespace/meeps-dev exit=0
+kubernetes/base/namespace.yaml: canonical resource: security/image checks + server dry run + diff
+DIFF PodDisruptionBudget/meeps-api exit=0
+kubernetes/base/pdb.yaml: canonical resource: security/image checks + server dry run + diff
+DIFF Service/postgres-headless exit=0
+DIFF Service/postgres exit=0
+kubernetes/base/postgres-service.yaml: canonical resource: security/image checks + server dry run + diff
+DIFF StatefulSet/postgres exit=0
+kubernetes/base/postgres-statefulset.yaml: canonical resource: security/image checks + server dry run + diff
+DIFF ServiceAccount/meeps-workloads exit=0
+kubernetes/base/serviceaccount.yaml: canonical resource: security/image checks + server dry run + diff
+DIFF Namespace/traefik-system exit=0
+kubernetes/cluster/ingress-controller/namespace.yaml: canonical resource: security/image checks + server dry run + diff
+DIFF ServiceAccount/meeps-traefik exit=0
+DIFF Role/meeps-traefik-reader exit=0
+DIFF RoleBinding/meeps-traefik-reader exit=0
+DIFF ClusterRole/meeps-traefik-discovery exit=0
+DIFF ClusterRoleBinding/meeps-traefik-discovery exit=0
+DIFF IngressClass/meeps-traefik exit=0
+kubernetes/cluster/ingress-controller/rbac.yaml: canonical resource: security/image checks + server dry run + diff
+DIFF Deployment/traefik exit=0
+kubernetes/cluster/ingress-controller/traefik-deployment.yaml: canonical resource: security/image checks + server dry run + diff
+DIFF Service/traefik exit=0
+kubernetes/cluster/ingress-controller/traefik-service.yaml: canonical resource: security/image checks + server dry run + diff
+kubernetes/cluster/kind-config.yaml: kind configuration: syntax + lab invariants; not a Kubernetes API object
+DIFF ServiceAccount/metrics-server exit=0
+DIFF ClusterRole/system:aggregated-metrics-reader exit=0
+DIFF ClusterRole/system:metrics-server exit=0
+DIFF RoleBinding/metrics-server-auth-reader exit=0
+DIFF ClusterRoleBinding/metrics-server:system:auth-delegator exit=0
+DIFF ClusterRoleBinding/system:metrics-server exit=0
+DIFF Service/metrics-server exit=0
+DIFF Deployment/metrics-server exit=1
+DIFF APIService/v1beta1.metrics.k8s.io exit=0
+kubernetes/cluster/metrics-server/components-v0.9.1.yaml: canonical resource: security/image checks + server dry run + diff
+kubernetes/cluster/metrics-server/kind-local-tls.patch.json: patch rendered into target + server dry run only; NEVER applied/diffed as desired state
+kubernetes/docs/day-94-fixture.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-94-pods-after.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-94-pods-before.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-95-endpoints-during-drill.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-95-ingress-records.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-95-readiness-drill.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-96-baseline-deployment.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-96-baseline-deployment.yaml: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-96-baseline-endpoints.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-96-baseline-pods.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-96-baseline-records.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-96-baseline-replicasets.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-96-baseline-state.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-96-good-state.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-96-known-good-deployment.yaml: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-96-update-deployment.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-96-update-endpoints.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-96-update-pods.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-96-update-records.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-96-update-replicasets.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-96-update-traffic-summary.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-97-baseline.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-97-before-hpa-deployment.yaml: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-97-drain-http-samples.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-97-load-job-at-stop.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-97-load-request.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-97-manual-2.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-97-manual-4.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-97-metrics-before-unpin-20261114-171216.yaml: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-97-pods-before-drain.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-97-replica-handoff.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-97-scale-in.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-97-scale-out.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-97-topology.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-98-baseline.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-98-canary-healthy.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-98-fault-crash-observed.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-98-fault-crash-request.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-98-fault-crash.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-98-fault-readiness-observed.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-98-fault-readiness-request.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-98-fault-secret-key-observed.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-98-fault-secret-key-request.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-98-fault-secret-key.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-98-fault-selector-request.json: capture/snapshot: syntax only, never reapplied
+kubernetes/docs/day-98-validation-inventory.json: capture/snapshot: syntax only, never reapplied
+kubernetes/examples/api-secret.example.yaml: placeholder Secret: syntax/placeholder checks only; no API request or diff
+kubernetes/examples/day-95-api-probes.patch.yaml: patch rendered into target + server dry run only; NEVER applied/diffed as desired state
+kubernetes/examples/day-95-httproute.example.yaml: optional Gateway reference: syntax only; not deployed or server-validated
+kubernetes/examples/day-96-rollout.patch.yaml: patch rendered into target + server dry run only; NEVER applied/diffed as desired state
+kubernetes/examples/day-97-load-job.yaml: lab/example resources: server dry run only; NEVER applied/diffed as desired state
+kubernetes/examples/day-97-topology.patch.yaml: patch rendered into target + server dry run only; NEVER applied/diffed as desired state
+kubernetes/examples/secret.example.yaml: placeholder Secret: syntax/placeholder checks only; no API request or diff
+VALIDATION COMPLETE. Review day-98-manifest-diff.txt; diff exit 1 means differences, not a CLI error.

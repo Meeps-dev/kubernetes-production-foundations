@@ -1,0 +1,82 @@
+Name:             meeps-api-7b6dbd5797-xbbjv
+Namespace:        meeps-dev
+Priority:         0
+Service Account:  meeps-api
+Node:             meeps-k8s-cluster-worker2/172.22.0.3
+Start Time:       Mon, 09 Nov 2026 19:33:16 +0100
+Labels:           app.kubernetes.io/component=api
+                  app.kubernetes.io/instance=meeps-dev
+                  app.kubernetes.io/name=meeps-api
+                  app.kubernetes.io/part-of=kubernetes-production-foundations
+                  app.kubernetes.io/version=k8s-v2
+                  pod-template-hash=7b6dbd5797
+Annotations:      <none>
+Status:           Running
+SeccompProfile:   RuntimeDefault
+IP:               10.244.2.4
+IPs:
+  IP:           10.244.2.4
+Controlled By:  ReplicaSet/meeps-api-7b6dbd5797
+Containers:
+  api:
+    Container ID:  containerd://8a24db71e7be28381adf8c7bc03b0abdbe7cc71d8646ec400823f4ba232fa6b5
+    Image:         meeps-users-posts-api:k8s-v2
+    Image ID:      docker.io/library/import-2026-11-09@sha256:77f0bad046bae31fc649c4dda0e09ada3fcf1e815d18144260ae48ed19241534
+    Port:          8000/TCP (http)
+    Host Port:     0/TCP (http)
+    Command:
+      python
+      -m
+      uvicorn
+    Args:
+      app.main:app
+      --host
+      0.0.0.0
+      --port
+      8000
+      --timeout-graceful-shutdown
+      20
+    State:          Running
+      Started:      Mon, 09 Nov 2026 19:33:17 +0100
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:     500m
+      memory:  256Mi
+    Requests:
+      cpu:      100m
+      memory:   128Mi
+    Liveness:   http-get http://:http/health delay=0s timeout=2s period=10s #success=1 #failure=3
+    Readiness:  http-get http://:http/__day95_wrong_ready delay=0s timeout=5s period=5s #success=1 #failure=2
+    Startup:    http-get http://:http/health delay=0s timeout=2s period=5s #success=1 #failure=24
+    Environment Variables from:
+      meeps-api-config  ConfigMap  Optional: false
+    Environment:
+      DATABASE_URL:  <set to the key 'DATABASE_URL' in secret 'meeps-api-credentials'>  Optional: false
+    Mounts:
+      /tmp from tmp (rw)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  tmp:
+    Type:        EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:      
+    SizeLimit:   64Mi
+QoS Class:       Burstable
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                 node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age   From               Message
+  ----     ------     ----  ----               -------
+  Normal   Scheduled  11s   default-scheduler  Successfully assigned meeps-dev/meeps-api-7b6dbd5797-xbbjv to meeps-k8s-cluster-worker2
+  Normal   Pulled     10s   kubelet            spec.containers{api}: Container image "meeps-users-posts-api:k8s-v2" already present on machine and can be accessed by the pod
+  Normal   Created    10s   kubelet            spec.containers{api}: Container created
+  Normal   Started    9s    kubelet            spec.containers{api}: Container started
+  Warning  Unhealthy  5s    kubelet            spec.containers{api}: Startup probe failed: Get "http://10.244.2.4:8000/health": dial tcp 10.244.2.4:8000: connect: connection refused
+  Warning  Unhealthy  0s    kubelet            spec.containers{api}: Readiness probe failed: HTTP probe failed with statuscode: 404

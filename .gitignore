@@ -14,3 +14,10 @@ __pycache__/
 
 # macOS
 .DS_Store
+
+# Private local Kubernetes files and diagnostics
+/.kube/
+/.local/
+*.kubeconfig
+/kubernetes/base/secret.local.yaml
+/kubernetes/docs/debug-logs/

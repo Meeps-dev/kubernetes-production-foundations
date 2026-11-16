@@ -1,0 +1,44 @@
+Day 98 checkpoint: fault-selector | 2026-11-14T16:49:49.624339+00:00
+NAME                                 READY   UP-TO-DATE   AVAILABLE   AGE     CONTAINERS   IMAGES                            SELECTOR
+deployment.apps/meeps-api            5/5     5            5           39d     api          meeps-users-posts-api:week14-v2   app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api
+deployment.apps/meeps-day98-canary   1/1     1            1           8m31s   api          meeps-users-posts-api:week14-v2   app.kubernetes.io/name=meeps-day98-canary
+
+NAME                                      READY   STATUS    RESTARTS        AGE     IP            NODE                        NOMINATED NODE   READINESS GATES
+pod/meeps-api-5b9dd8bcff-6t2tn            1/1     Running   0               8m17s   10.244.2.10   meeps-k8s-cluster-worker2   <none>           <none>
+pod/meeps-api-5b9dd8bcff-c4jsf            1/1     Running   1 (111m ago)    23h     10.244.2.2    meeps-k8s-cluster-worker2   <none>           <none>
+pod/meeps-api-5b9dd8bcff-fczhp            1/1     Running   0               110m    10.244.1.4    meeps-k8s-cluster-worker    <none>           <none>
+pod/meeps-api-5b9dd8bcff-q4fxn            1/1     Running   0               6m16s   10.244.1.7    meeps-k8s-cluster-worker    <none>           <none>
+pod/meeps-api-5b9dd8bcff-zphxz            1/1     Running   0               4m15s   10.244.2.14   meeps-k8s-cluster-worker2   <none>           <none>
+pod/meeps-day98-canary-6f54c77c44-f5522   1/1     Running   0               63s     10.244.2.17   meeps-k8s-cluster-worker2   <none>           <none>
+pod/postgres-0                            1/1     Running   13 (111m ago)   41d     10.244.1.2    meeps-k8s-cluster-worker    <none>           <none>
+
+NAME                                            REFERENCE              TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/meeps-api   Deployment/meeps-api   cpu: 24%/60%   2         5         5          23h
+
+NAME                                   MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+poddisruptionbudget.policy/meeps-api   1               N/A               4                     23h
+
+NAME                         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE     SELECTOR
+service/meeps-api            ClusterIP   10.96.140.218   <none>        80/TCP     39d     app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api
+service/meeps-day98-canary   ClusterIP   10.96.252.67    <none>        80/TCP     8m32s   app.kubernetes.io/name=meeps-day98-canary
+service/postgres             ClusterIP   10.96.67.37     <none>        5432/TCP   41d     app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=postgres
+service/postgres-headless    ClusterIP   None            <none>        5432/TCP   41d     app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=postgres
+
+NAME                                             STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE   VOLUMEMODE
+persistentvolumeclaim/postgres-data-postgres-0   Bound    pvc-f29efa61-733a-4e24-902a-9efcc6bf6996   1Gi        RWO            standard       <unset>                 41d   Filesystem
+
+service/meeps-day98-canary unchanged
+
+deployment.apps/meeps-day98-canary configured
+
+{"success": true, "http_status": 200}
+service/meeps-day98-canary configured
+
+deployment.apps/meeps-day98-canary configured
+
+service/meeps-day98-canary configured
+
+deployment.apps/meeps-day98-canary configured
+
+{"success": true, "http_status": 200}
+RECOVERY: canary is ready and Service responds again.

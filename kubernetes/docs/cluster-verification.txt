@@ -1,0 +1,50 @@
+===== CAPTURE TIME =====
+Fri Oct  2 10:34:34 UTC 2026
+
+===== TOOL VERSIONS =====
+kind v0.33.0 go1.26.7 darwin/amd64
+Client Version: v1.36.1
+Kustomize Version: v5.8.1
+Server Version: v1.37.0
+
+===== CURRENT CONTEXT =====
+kind-meeps-k8s-cluster
+
+===== DEFAULT NAMESPACE =====
+meeps-dev
+
+===== CLUSTER INFO =====
+Kubernetes control plane is running at https://127.0.0.1:58236
+CoreDNS is running at https://127.0.0.1:58236/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+
+===== NODES =====
+NAME                              STATUS   ROLES           AGE   VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE                       KERNEL-VERSION            CONTAINER-RUNTIME
+meeps-k8s-cluster-control-plane   Ready    control-plane   10h   v1.37.0   172.22.0.2    <none>        Debian GNU/Linux 13 (trixie)   7.0.12-linuxkit (amd64)   containerd://2.3.4
+meeps-k8s-cluster-worker          Ready    <none>          10h   v1.37.0   172.22.0.3    <none>        Debian GNU/Linux 13 (trixie)   7.0.12-linuxkit (amd64)   containerd://2.3.4
+meeps-k8s-cluster-worker2         Ready    <none>          10h   v1.37.0   172.22.0.4    <none>        Debian GNU/Linux 13 (trixie)   7.0.12-linuxkit (amd64)   containerd://2.3.4
+
+===== SYSTEM PODS =====
+NAMESPACE            NAME                                                      READY   STATUS    RESTARTS   AGE   IP           NODE                              NOMINATED NODE   READINESS GATES
+kube-system          coredns-559f6c778d-7njb9                                  1/1     Running   0          10h   10.244.0.4   meeps-k8s-cluster-control-plane   <none>           <none>
+kube-system          coredns-559f6c778d-l6ks2                                  1/1     Running   0          10h   10.244.0.3   meeps-k8s-cluster-control-plane   <none>           <none>
+kube-system          etcd-meeps-k8s-cluster-control-plane                      1/1     Running   0          10h   172.22.0.2   meeps-k8s-cluster-control-plane   <none>           <none>
+kube-system          kindnet-4n6xs                                             1/1     Running   0          10h   172.22.0.4   meeps-k8s-cluster-worker2         <none>           <none>
+kube-system          kindnet-b4fs7                                             1/1     Running   0          10h   172.22.0.2   meeps-k8s-cluster-control-plane   <none>           <none>
+kube-system          kindnet-hlc4j                                             1/1     Running   0          10h   172.22.0.3   meeps-k8s-cluster-worker          <none>           <none>
+kube-system          kube-apiserver-meeps-k8s-cluster-control-plane            1/1     Running   0          10h   172.22.0.2   meeps-k8s-cluster-control-plane   <none>           <none>
+kube-system          kube-controller-manager-meeps-k8s-cluster-control-plane   1/1     Running   0          10h   172.22.0.2   meeps-k8s-cluster-control-plane   <none>           <none>
+kube-system          kube-proxy-7ptzs                                          1/1     Running   0          10h   172.22.0.3   meeps-k8s-cluster-worker          <none>           <none>
+kube-system          kube-proxy-95q8z                                          1/1     Running   0          10h   172.22.0.2   meeps-k8s-cluster-control-plane   <none>           <none>
+kube-system          kube-proxy-q4xmj                                          1/1     Running   0          10h   172.22.0.4   meeps-k8s-cluster-worker2         <none>           <none>
+kube-system          kube-scheduler-meeps-k8s-cluster-control-plane            1/1     Running   0          10h   172.22.0.2   meeps-k8s-cluster-control-plane   <none>           <none>
+local-path-storage   local-path-provisioner-75f7fc7dc5-k4g4l                   1/1     Running   0          10h   10.244.0.2   meeps-k8s-cluster-control-plane   <none>           <none>
+
+===== NAMESPACE LABELS =====
+NAME        STATUS   AGE   LABELS
+meeps-dev   Active   26m   app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/managed-by=kubectl,app.kubernetes.io/name=meeps-platform,app.kubernetes.io/part-of=kubernetes-production-foundations,environment=dev,kubernetes.io/metadata.name=meeps-dev,owner=meeps,pod-security.kubernetes.io/audit-version=v1.37,pod-security.kubernetes.io/audit=restricted,pod-security.kubernetes.io/warn-version=v1.37,pod-security.kubernetes.io/warn=restricted,project=meeps,week=week-14
+
+===== STORAGE CLASSES =====
+NAME                 PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+standard (default)   rancher.io/local-path   Delete          WaitForFirstConsumer   false                  10h

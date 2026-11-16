@@ -1,0 +1,192 @@
+{
+  "apiVersion": "v1",
+  "kind": "List",
+  "items": [
+    {
+      "apiVersion": "apps/v1",
+      "kind": "Deployment",
+      "metadata": {
+        "name": "meeps-day98-canary",
+        "namespace": "meeps-dev",
+        "labels": {
+          "meeps.dev/day98-owner": "failure-lab-v1"
+        }
+      },
+      "spec": {
+        "replicas": 1,
+        "strategy": {
+          "type": "Recreate"
+        },
+        "revisionHistoryLimit": 1,
+        "minReadySeconds": 0,
+        "progressDeadlineSeconds": 180,
+        "selector": {
+          "matchLabels": {
+            "app.kubernetes.io/name": "meeps-day98-canary"
+          }
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "app.kubernetes.io/name": "meeps-day98-canary",
+              "app.kubernetes.io/instance": "meeps-dev",
+              "meeps.dev/day98-owner": "failure-lab-v1"
+            }
+          },
+          "spec": {
+            "automountServiceAccountToken": false,
+            "containers": [
+              {
+                "args": [
+                  "import sys; print('DAY98_INTENTIONAL_CRASH',flush=True); sys.exit(42)"
+                ],
+                "command": [
+                  "python",
+                  "-c"
+                ],
+                "env": [
+                  {
+                    "name": "DATABASE_URL",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "key": "DATABASE_URL",
+                        "name": "meeps-api-credentials"
+                      }
+                    }
+                  }
+                ],
+                "envFrom": [
+                  {
+                    "configMapRef": {
+                      "name": "meeps-api-config"
+                    }
+                  }
+                ],
+                "image": "meeps-users-posts-api:week14-v2",
+                "imagePullPolicy": "Never",
+                "livenessProbe": {
+                  "failureThreshold": 3,
+                  "httpGet": {
+                    "path": "/health",
+                    "port": "http",
+                    "scheme": "HTTP"
+                  },
+                  "periodSeconds": 10,
+                  "successThreshold": 1,
+                  "timeoutSeconds": 2
+                },
+                "name": "api",
+                "ports": [
+                  {
+                    "containerPort": 8000,
+                    "name": "http",
+                    "protocol": "TCP"
+                  }
+                ],
+                "readinessProbe": {
+                  "failureThreshold": 2,
+                  "httpGet": {
+                    "path": "/ready",
+                    "port": "http",
+                    "scheme": "HTTP"
+                  },
+                  "periodSeconds": 5,
+                  "successThreshold": 1,
+                  "timeoutSeconds": 5
+                },
+                "resources": {
+                  "limits": {
+                    "cpu": "500m",
+                    "memory": "256Mi"
+                  },
+                  "requests": {
+                    "cpu": "100m",
+                    "memory": "128Mi"
+                  }
+                },
+                "securityContext": {
+                  "allowPrivilegeEscalation": false,
+                  "capabilities": {
+                    "drop": [
+                      "ALL"
+                    ]
+                  },
+                  "readOnlyRootFilesystem": true
+                },
+                "startupProbe": {
+                  "failureThreshold": 24,
+                  "httpGet": {
+                    "path": "/health",
+                    "port": "http",
+                    "scheme": "HTTP"
+                  },
+                  "periodSeconds": 5,
+                  "successThreshold": 1,
+                  "timeoutSeconds": 2
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                  {
+                    "mountPath": "/tmp",
+                    "name": "tmp"
+                  }
+                ]
+              }
+            ],
+            "dnsPolicy": "ClusterFirst",
+            "nodeSelector": {
+              "meeps.dev/node-pool": "worker"
+            },
+            "restartPolicy": "Always",
+            "schedulerName": "default-scheduler",
+            "securityContext": {
+              "fsGroup": 10001,
+              "runAsGroup": 10001,
+              "runAsNonRoot": true,
+              "runAsUser": 10001,
+              "seccompProfile": {
+                "type": "RuntimeDefault"
+              }
+            },
+            "serviceAccount": "meeps-api",
+            "serviceAccountName": "meeps-api",
+            "terminationGracePeriodSeconds": 30,
+            "volumes": [
+              {
+                "emptyDir": {
+                  "sizeLimit": "64Mi"
+                },
+                "name": "tmp"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "name": "meeps-day98-canary",
+        "namespace": "meeps-dev",
+        "labels": {
+          "meeps.dev/day98-owner": "failure-lab-v1"
+        }
+      },
+      "spec": {
+        "type": "ClusterIP",
+        "selector": {
+          "app.kubernetes.io/name": "meeps-day98-canary"
+        },
+        "ports": [
+          {
+            "name": "http",
+            "port": 80,
+            "targetPort": "http"
+          }
+        ]
+      }
+    }
+  ]
+}

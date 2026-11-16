@@ -1,0 +1,6 @@
+INFO:     Started server process [1]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     10.244.2.1:53814 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.2.1:53822 - "GET /__day98_wrong_ready HTTP/1.1" 404 Not Found

@@ -1,0 +1,24 @@
+# Strategic merge fragment, NOT a standalone resource.
+# Apply locally to the tracked Deployment before the monitored update.
+metadata:
+  annotations:
+    kubernetes.io/change-cause: "Day 96: release week14-v2 with /version"
+spec:
+  replicas: 2
+  minReadySeconds: 10
+  progressDeadlineSeconds: 180
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/version: week14-v2
+    spec:
+      containers:
+        - name: api
+          image: meeps-users-posts-api:week14-v2
+          imagePullPolicy: Never

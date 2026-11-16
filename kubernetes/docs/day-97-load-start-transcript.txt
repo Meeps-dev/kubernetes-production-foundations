@@ -1,0 +1,6 @@
+Day 97 checkpoint: load-start | 2026-11-13T17:22:09.726938+00:00
+configmap/meeps-day97-load created
+
+job.batch/meeps-day97-load created
+
+Bounded load Job started. Watch HPA, metrics and API readiness; stop on errors or pressure.

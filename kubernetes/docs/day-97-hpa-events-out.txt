@@ -1,0 +1,33 @@
+Name:                                                  meeps-api
+Namespace:                                             meeps-dev
+Labels:                                                <none>
+Annotations:                                           <none>
+CreationTimestamp:                                     Fri, 13 Nov 2026 18:19:34 +0100
+Reference:                                             Deployment/meeps-api
+Metrics:                                               ( current / target )
+  resource cpu on pods  (as a percentage of request):  89% (89m) / 60%
+Min replicas:                                          2
+Max replicas:                                          5
+Behavior:
+  Scale Up:
+    Stabilization Window: 0 seconds
+    Select Policy: Max
+    Policies:
+      - Type: Pods  Value: 1  Period: 30 seconds
+  Scale Down:
+    Stabilization Window: 180 seconds
+    Select Policy: Max
+    Policies:
+      - Type: Pods  Value: 1  Period: 60 seconds
+Deployment pods:    3 current / 3 desired
+Conditions:
+  Type            Status  Reason              Message
+  ----            ------  ------              -------
+  AbleToScale     True    ReadyForNewScale    recommended size matches current size
+  ScalingActive   True    ValidMetricFound    the HPA was able to successfully calculate a replica count from cpu resource utilization (percentage of request)
+  ScalingLimited  False   DesiredWithinRange  the desired count is within the acceptable range
+  ScaledToZero    False   NotScaledToZero     the HPA controller did not scale the workload to zero
+Events:
+  Type    Reason             Age   From                       Message
+  ----    ------             ----  ----                       -------
+  Normal  SuccessfulRescale  22s   horizontal-pod-autoscaler  New size: 3; reason: cpu resource utilization (percentage of request) above target

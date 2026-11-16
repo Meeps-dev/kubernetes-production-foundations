@@ -1,0 +1,4 @@
+DAY 96 / rollback / 2026-11-11T09:28:43.066+00:00
+STOP: [Errno 2] No such file or directory: 'kubernetes/docs/day-96-failed-state.json'
+This attempt is incomplete; its report remains .tmp. Do not rename it to claim success.
+Inspect the Deployment. No automatic workload rollback has been performed.

@@ -1,0 +1,36 @@
+Name:                                                  meeps-api
+Namespace:                                             meeps-dev
+Labels:                                                <none>
+Annotations:                                           <none>
+CreationTimestamp:                                     Fri, 13 Nov 2026 18:19:34 +0100
+Reference:                                             Deployment/meeps-api
+Metrics:                                               ( current / target )
+  resource cpu on pods  (as a percentage of request):  13% (13m) / 60%
+Min replicas:                                          2
+Max replicas:                                          5
+Behavior:
+  Scale Up:
+    Stabilization Window: 0 seconds
+    Select Policy: Max
+    Policies:
+      - Type: Pods  Value: 1  Period: 30 seconds
+  Scale Down:
+    Stabilization Window: 180 seconds
+    Select Policy: Max
+    Policies:
+      - Type: Pods  Value: 1  Period: 60 seconds
+Deployment pods:    2 current / 2 desired
+Conditions:
+  Type            Status  Reason            Message
+  ----            ------  ------            -------
+  AbleToScale     True    ReadyForNewScale  recommended size matches current size
+  ScalingActive   True    ValidMetricFound  the HPA was able to successfully calculate a replica count from cpu resource utilization (percentage of request)
+  ScalingLimited  True    TooFewReplicas    the desired replica count is less than the minimum replica count
+  ScaledToZero    False   NotScaledToZero   the HPA controller did not scale the workload to zero
+Events:
+  Type    Reason             Age    From                       Message
+  ----    ------             ----   ----                       -------
+  Normal  SuccessfulRescale  6m58s  horizontal-pod-autoscaler  New size: 3; reason: cpu resource utilization (percentage of request) above target
+  Normal  SuccessfulRescale  6m12s  horizontal-pod-autoscaler  New size: 4; reason: cpu resource utilization (percentage of request) above target
+  Normal  SuccessfulRescale  102s   horizontal-pod-autoscaler  New size: 3; reason: All metrics below target
+  Normal  SuccessfulRescale  41s    horizontal-pod-autoscaler  New size: 2; reason: All metrics below target

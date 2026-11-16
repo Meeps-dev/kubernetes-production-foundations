@@ -1,0 +1,9 @@
+{
+  "result": "FAIL",
+  "requests": 226,
+  "failed_requests": 1,
+  "sampler_error": null,
+  "completed_operation": true,
+  "max_seconds": 0.268012,
+  "scope": "Finite samples of / and /ready through host Ingress; no retry and no zero-downtime guarantee."
+}

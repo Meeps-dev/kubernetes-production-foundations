@@ -1,0 +1,22 @@
+# REFERENCE ONLY: do not apply during the core Ingress lab.
+# Needs Gateway API CRDs, an enabled provider with its own RBAC,
+# and a programmed meeps-gateway with an HTTP listener named web.
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: meeps-api
+  namespace: meeps-dev
+spec:
+  parentRefs:
+    - name: meeps-gateway
+      sectionName: web
+  hostnames:
+    - api.meeps.local
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: meeps-api
+          port: 80

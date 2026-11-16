@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: meeps-api
+  namespace: meeps-dev
+  labels:
+    app.kubernetes.io/name: meeps-api
+    app.kubernetes.io/instance: meeps-dev
+    app.kubernetes.io/part-of: kubernetes-production-foundations
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+spec:
+  ingressClassName: meeps-traefik
+  rules:
+    - host: api.meeps.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: meeps-api
+                port:
+                  number: 80

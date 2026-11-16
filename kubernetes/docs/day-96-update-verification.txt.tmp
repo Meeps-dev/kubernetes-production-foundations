@@ -1,0 +1,85 @@
+DAY 96 / update / 2026-11-11T09:11:45.569+00:00
+HTTP sampling active: / and /ready via 127.0.0.1:8080
+deployment.apps/meeps-api configured
+
+Waiting for deployment spec update to be observed...
+Waiting for deployment spec update to be observed...
+Waiting for deployment "meeps-api" rollout to finish: 0 out of 2 new replicas have been updated...
+Waiting for deployment "meeps-api" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "meeps-api" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "meeps-api" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "meeps-api" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "meeps-api" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "meeps-api" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "meeps-api" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "meeps-api" rollout to finish: 1 old replicas are pending termination...
+deployment "meeps-api" successfully rolled out
+
+[
+  {
+    "result": "PASS",
+    "mode": "GET-only",
+    "base_url": "http://traefik.traefik-system",
+    "release": {
+      "version": "week14-v2",
+      "pod": "meeps-api-8445846c4b-m586f"
+    },
+    "user_id": 1,
+    "post_id": 1
+  },
+  {
+    "result": "PASS",
+    "mode": "GET-only",
+    "base_url": "http://127.0.0.1:8000",
+    "release": {
+      "version": "week14-v2",
+      "pod": "meeps-api-8445846c4b-m586f"
+    },
+    "user_id": 1,
+    "post_id": 1
+  },
+  {
+    "result": "PASS",
+    "mode": "GET-only",
+    "base_url": "http://127.0.0.1:8000",
+    "release": {
+      "version": "week14-v2",
+      "pod": "meeps-api-8445846c4b-ndch9"
+    },
+    "user_id": 1,
+    "post_id": 1
+  }
+]
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                            SELECTOR
+deployment.apps/meeps-api   2/2     2            2           35d   api          meeps-users-posts-api:week14-v2   app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api
+
+NAME                                   DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES                            SELECTOR
+replicaset.apps/meeps-api-5594cf54f4   0         0         0       35d   api          meeps-users-posts-api:k8s-v1      app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api,pod-template-hash=5594cf54f4
+replicaset.apps/meeps-api-7b6dbd5797   0         0         0       38h   api          meeps-users-posts-api:k8s-v2      app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api,pod-template-hash=7b6dbd5797
+replicaset.apps/meeps-api-8445846c4b   2         2         2       65s   api          meeps-users-posts-api:week14-v2   app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api,pod-template-hash=8445846c4b
+replicaset.apps/meeps-api-bd56ccd98    0         0         0       2d    api          meeps-users-posts-api:k8s-v2      app.kubernetes.io/instance=meeps-dev,app.kubernetes.io/name=meeps-api,pod-template-hash=bd56ccd98
+
+NAME                             READY   STATUS    RESTARTS   AGE   IP           NODE                        NOMINATED NODE   READINESS GATES
+pod/meeps-api-8445846c4b-m586f   1/1     Running   0          65s   10.244.2.4   meeps-k8s-cluster-worker2   <none>           <none>
+pod/meeps-api-8445846c4b-ndch9   1/1     Running   0          39s   10.244.1.4   meeps-k8s-cluster-worker    <none>           <none>
+
+deployment.apps/meeps-api 
+REVISION  CHANGE-CAUSE
+1         <none>
+3         <none>
+4         <none>
+5         Day 96: release week14-v2 with /version
+
+
+{
+  "result": "FAIL",
+  "requests": 226,
+  "failed_requests": 1,
+  "sampler_error": null,
+  "completed_operation": true,
+  "max_seconds": 0.268012,
+  "scope": "Finite samples of / and /ready through host Ingress; no retry and no zero-downtime guarantee."
+}
+STOP: HTTP failures were observed; preserve and investigate the report
+This attempt is incomplete; its report remains .tmp. Do not rename it to claim success.
+Inspect the Deployment. No automatic workload rollback has been performed.

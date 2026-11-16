@@ -1,0 +1,10 @@
+[
+  {
+    "result": "PASS",
+    "mode": "GET-only",
+    "base_url": "http://traefik.traefik-system",
+    "release": null,
+    "user_id": 1,
+    "post_id": 1
+  }
+]

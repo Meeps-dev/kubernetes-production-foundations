@@ -1,0 +1,6 @@
+Successfully assigned meeps-dev/meeps-api-7b6dbd5797-xbbjv to meeps-k8s-cluster-worker2
+Container image "meeps-users-posts-api:k8s-v2" already present on machine and can be accessed by the pod
+Container created
+Container started
+Startup probe failed: Get "http://10.244.2.4:8000/health": dial tcp 10.244.2.4:8000: connect: connection refused
+Readiness probe failed: HTTP probe failed with statuscode: 404

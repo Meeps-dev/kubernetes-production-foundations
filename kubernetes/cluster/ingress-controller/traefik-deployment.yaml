@@ -1,0 +1,105 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: meeps-traefik
+    app.kubernetes.io/name: traefik
+  name: traefik
+  namespace: traefik-system
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: meeps-traefik
+      app.kubernetes.io/name: traefik
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: meeps-traefik
+        app.kubernetes.io/name: traefik
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - args:
+        - --global.checknewversion=false
+        - --global.sendanonymoususage=false
+        - --entrypoints.web.address=:8000
+        - --entrypoints.websecure.address=:8443
+        - --entrypoints.health.address=:9000
+        - --providers.kubernetesingress=true
+        - --providers.kubernetesingress.namespaces=meeps-dev
+        - --providers.kubernetesingress.ingressclass=meeps-traefik
+        - --providers.kubernetesingress.allowemptyservices=true
+        - --providers.kubernetesingress.nativelbbydefault=false
+        - --providers.kubernetesingress.strictprefixmatching=true
+        - --ping=true
+        - --ping.entrypoint=health
+        - --log.level=INFO
+        - --log.format=json
+        - --accesslog=true
+        - --accesslog.format=json
+        - --accesslog.bufferingsize=0
+        - --accesslog.fields.headers.defaultmode=drop
+        - --accesslog.fields.headers.names.X-Meeps-Drill=keep
+        image: traefik@sha256:f4bb143d1135a579b630ed491e17ec50f6f7c9c6a30585ff3d385471d2a86f5a
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /ping
+            port: health
+          periodSeconds: 10
+          timeoutSeconds: 2
+        name: traefik
+        ports:
+        - containerPort: 8000
+          name: web
+        - containerPort: 8443
+          name: websecure
+        - containerPort: 9000
+          name: health
+        readinessProbe:
+          httpGet:
+            path: /ping
+            port: health
+          periodSeconds: 5
+          timeoutSeconds: 2
+        resources:
+          limits:
+            cpu: 500m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+        startupProbe:
+          failureThreshold: 24
+          httpGet:
+            path: /ping
+            port: health
+          periodSeconds: 5
+          timeoutSeconds: 2
+        volumeMounts:
+        - mountPath: /tmp
+          name: tmp
+      securityContext:
+        fsGroup: 65532
+        runAsGroup: 65532
+        runAsNonRoot: true
+        runAsUser: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      serviceAccountName: meeps-traefik
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - emptyDir:
+          sizeLimit: 32Mi
+        name: tmp
+status: {}

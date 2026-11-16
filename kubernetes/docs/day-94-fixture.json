@@ -1,0 +1,24 @@
+{
+  "result": "PASS",
+  "mode": "create",
+  "base_url": "http://meeps-api",
+  "checks": [
+    "root",
+    "health",
+    "user_read",
+    "post_read"
+  ],
+  "fixture": {
+    "user": {
+      "id": 1,
+      "name": "Day 94 Kubernetes User",
+      "email": "day94-ced63c2d2a7b@example.test"
+    },
+    "post": {
+      "id": 1,
+      "title": "Day 94 persistence check ced63c2d2a7b",
+      "content": "This record must remain readable after an API Pod is replaced.",
+      "user_id": 1
+    }
+  }
+}

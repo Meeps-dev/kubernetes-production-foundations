@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: traefik
+  namespace: traefik-system
+spec:
+  type: NodePort
+  # The mapped control-plane node may forward to Traefik on either worker.
+  externalTrafficPolicy: Cluster
+  selector:
+    app.kubernetes.io/name: traefik
+    app.kubernetes.io/instance: meeps-traefik
+  ports:
+    - name: web
+      port: 80
+      targetPort: web
+      nodePort: 30080
+    - name: websecure
+      port: 443
+      targetPort: websecure
+      nodePort: 30443
+# The websecure port is reserved; no TLS route/certificate is configured today.

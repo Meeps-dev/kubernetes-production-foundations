@@ -1,0 +1,8 @@
+{
+  "result": "PASS",
+  "at": "2026-11-13T17:29:49.498544+00:00",
+  "observed_ready": 2,
+  "desired": 2,
+  "max_ready_observed": 4,
+  "max_desired_observed": 4
+}

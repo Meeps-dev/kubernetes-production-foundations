@@ -1,0 +1,7 @@
+{
+  "at": "2026-11-13T17:22:11.619473+00:00",
+  "target_rps": 200,
+  "seconds": 540,
+  "max_concurrency": 16,
+  "path": "/openapi.json"
+}
