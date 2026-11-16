@@ -6,7 +6,6 @@ A production-style local Kubernetes lab that takes the existing **Meeps Users an
 
 The focus is not just starting containers. It is understanding workload reconciliation, configuration boundaries, persistent data, health checks, routing, release management, autoscaling, and diagnosis using actual Pod conditions, events, logs, and saved test results.
 
-> **Scope:** Week 14, Days 92–98 of the Meeps Cloud/Platform Engineering roadmap. This is a local learning environment not a production-hosted service, a highly available database, or a zero-downtime guarantee.
 
 ## Project status and evidence boundaries
 
